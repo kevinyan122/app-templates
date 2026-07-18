@@ -5,9 +5,11 @@ description: "Give an agent durable, cross-session long-term memory using Databr
 
 # Long-Term Memory with Databricks Managed Memory (UC memory-store)
 
-Give your agent **durable, cross-session memory** about each user, exposed as five tools
-(`save_memory`, `get_memory`, `list_memories`, `update_memory`, `delete_memory`). The tools are thin
-REST calls to the Unity Catalog **memory-store** APIs.
+Give your agent **durable, cross-session memory** about each user, exposed as six tools
+(`search_memory`, `save_memory`, `get_memory`, `list_memories`, `update_memory`, `delete_memory`). The
+tools are thin REST calls to the Unity Catalog **memory-store** APIs. Recall is **search-first**:
+`search_memory` (a lexical BM25 search over `entries:search`) returns ranked entries with their full
+contents, so `list_memories` + `get_memory` are fallbacks, not the recall path.
 
 > **Beta.** The Databricks memory-store APIs are in beta — APIs and behavior may change.
 
@@ -22,7 +24,7 @@ REST calls to the Unity Catalog **memory-store** APIs.
 
 This skill is framework-agnostic and flexible with both the OpenAI Agents SDK and LangGraph; each step notes the small per-SDK difference.
 
-**For a pre-existing agent (not built from a default template) — still on Databricks Apps.** The core (memory-store REST API, the five tools, the scope-as-isolation rule, the grant calls in Steps 1–2) is identical; only the template specifics differ. Map the `agent_server/...` paths to your own modules and reuse the Databricks Apps primitives you already have: the **forwarded OBO user token** for the signed-in user's id (what `resolve_scope()` reads), `config.env` for `DATABRICKS_MEMORY_STORE`, and `databricks apps` to deploy. Two invariants never change: the tools authenticate via `WorkspaceClient()` as the **app service principal you grant on the store**, and you pass the **end user's id** as `scope` — fail closed, never the SP.
+**For a pre-existing agent (not built from a default template) — still on Databricks Apps.** The core (memory-store REST API, the six tools, the scope-as-isolation rule, the grant calls in Steps 1–2) is identical; only the template specifics differ. Map the `agent_server/...` paths to your own modules and reuse the Databricks Apps primitives you already have: the **forwarded OBO user token** for the signed-in user's id (what `resolve_scope()` reads), `config.env` for `DATABRICKS_MEMORY_STORE`, and `databricks apps` to deploy. Two invariants never change: the tools authenticate via `WorkspaceClient()` as the **app service principal you grant on the store**, and you pass the **end user's id** as `scope` — fail closed, never the SP.
 
 ## Prerequisites — this is an add-on
 
@@ -121,6 +123,7 @@ from agent_server.utils import get_user_workspace_client
 
 # API: BASE = /api/2.1/unity-catalog/memory-stores/{DATABRICKS_MEMORY_STORE}
 #   create  POST {BASE}/entries?scope=…   {path,contents,description,creation_reason,creation_source}  (flat body; scope is a query param)
+#   search  POST {BASE}/entries:search    ?scope  {query,top_k} -> {results:[{memory_entry:{path,description,contents,…}, score}]}  (lexical BM25)
 #   get     GET  {BASE}/entries:get       ?scope,path        -> {contents, description, ...}
 #   list    GET  {BASE}/entries           ?scope             -> {entries:[{path,description,has_contents}]}  (key omitted entirely when empty)
 #   update  PATCH{BASE}/entries          {scope, path, [description], [one contents edit op]}  (>=1 of the two)
@@ -158,7 +161,7 @@ def resolve_scope(request=None) -> str | None:
     ci = dict(getattr(request, "custom_inputs", None) or {})
     return headers.get("x-forwarded-user") or ci.get("user_id")
 
-# The five operations. `scope` is passed in (never model-supplied). Each returns a short string.
+# The six operations. `scope` is passed in (never model-supplied). Each returns a short string.
 def _save(scope, path, description, contents=""):
     try:
         _ws().api_client.do("POST", _entries(), query={"scope": scope}, body={
@@ -180,6 +183,27 @@ def _get(scope, path):
         return f"Could not read {path}: {getattr(e, 'message', str(e))}"
     # A brief memory may have empty contents — its description is then the memory.
     return entry.get("contents") or entry.get("description") or f"(empty memory at {path})"
+
+def _search(scope, query, top_k=10):
+    try:
+        resp = _ws().api_client.do("POST", _entries(":search"), query={"scope": scope},
+                                   body={"query": query, "top_k": top_k})
+    except DatabricksError as e:
+        return f"Could not search memories: {getattr(e, 'message', str(e))}"
+    results = resp.get("results", [])
+    if not results:
+        return f"No memories matched '{query}'."
+    # Full contents are inlined so the model never needs a follow-up get_memory; the BM25 score
+    # only orders results (it's unbounded, not a 0-1 confidence).
+    lines = []
+    for r in results:
+        entry = r.get("memory_entry", {})
+        line = f"- {entry.get('path')} (score {r.get('score', 0):.2f}): {entry.get('description', '')}"
+        contents = entry.get("contents")
+        if contents:
+            line += f"\n  {contents}"
+        lines.append(line)
+    return f"{len(results)} matches for '{query}' (full contents shown — no get_memory needed):\n" + "\n".join(lines)
 
 def _list(scope):
     try:
@@ -249,11 +273,30 @@ def _scope(ctx: RunContextWrapper[MemoryContext]) -> str:
         raise RuntimeError("No end-user scope for this request — refusing a shared memory bucket.")
     return ctx.context.scope
 
+@function_tool
+async def search_memory(ctx: RunContextWrapper[MemoryContext], query: str, top_k: int = 10) -> str:
+    """Search the user's stored memories (facts, preferences, projects, domain knowledge,
+    workflows) and return the most relevant entries, ranked by relevance, with their full content.
+
+    Use this before answering when the user's request might depend on something they've told you
+    before — preferences, personal facts, project context, how they like things done. Search, don't guess.
+
+    Parameters:
+    - query (required): what you're looking for. A natural-language question ("what are the
+      user's dietary restrictions") works as well as keywords ("dietary allergies") — both are
+      supported. Use the words you'd expect to appear in the memory itself.
+    - top_k (optional, default 10, max 50): how many results to return.
+
+    Returns up to top_k entries, each with: path, description, contents, and a relevance score
+    (higher = better). Results are already ranked — the top entries are the best matches. An
+    empty result means nothing matched these words, not that the user has no stored memories."""
+    return _search(_scope(ctx), query, top_k)
+
 # strict_mode=False: lets `contents` be genuinely optional / allows free-form dict edit ops.
 @function_tool(strict_mode=False)
 async def save_memory(ctx: RunContextWrapper[MemoryContext], path: str, description: str, contents: str = "") -> str:
     """Create ONE durable memory — a stable preference, fact, decision, or ongoing project; not one-off
-    chatter or secrets. Create-only (an existing path errors), so check list_memories first and use
+    chatter or secrets. Create-only (an existing path errors), so search_memory the topic first and use
     update_memory to revise a topic. path: a SHORT, STABLE topic bucket (lowercase-hyphenated, starts
     /memories/, ends .md) — keep it broad and reusable (e.g. /memories/preferences/food.md); put the
     specifics in description/contents, NOT the path, so related facts share one path and you update it
@@ -264,17 +307,18 @@ async def save_memory(ctx: RunContextWrapper[MemoryContext], path: str, descript
 
 @function_tool
 async def get_memory(ctx: RunContextWrapper[MemoryContext], path: str) -> str:
-    """Read the FULL contents of ONE memory by its exact path (from list_memories). The only way to see
-    what a memory says — always get_memory before stating a remembered fact; a description is just a
-    label. Not found means it isn't stored, not that the fact is false."""
+    """Read the FULL contents of ONE memory by its exact path. Rarely needed — search_memory already
+    returns full contents; use this only for a `[has_contents]` entry you spotted via list_memories.
+    Not found means it isn't stored, not that the fact is false."""
     return _get(_scope(ctx), path)
 
 @function_tool
 async def list_memories(ctx: RunContextWrapper[MemoryContext]) -> str:
-    """List EVERY saved memory as (path, description) — the index; returns NO contents. Your first step
-    for recall (scan → pick the relevant path(s)) and before saving (so you update an existing topic rather
-    than duplicate). An entry prefixed `[has_contents]` has a fuller body — get_memory(path) to read it
-    before stating specifics; an entry without that prefix is fully captured by its description. One call per turn."""
+    """List EVERY saved memory as (path, description) — the full index; returns NO contents. NOT for
+    recall — use search_memory for that. Reserve this for when the complete inventory is the point
+    (e.g. the user asks "what do you remember about me?") or a search found nothing.
+    An entry prefixed `[has_contents]` has a fuller body — get_memory(path) to read it before stating
+    specifics; an entry without that prefix is fully captured by its description. One call per turn."""
     return _list(_scope(ctx))
 
 @function_tool(strict_mode=False)
@@ -295,12 +339,12 @@ async def delete_memory(ctx: RunContextWrapper[MemoryContext], path: str) -> str
     or when the user asks to forget something. Don't delete to rewrite a valid fact — use update_memory."""
     return _delete(_scope(ctx), path)
 
-MEMORY_TOOLS = [save_memory, get_memory, list_memories, update_memory, delete_memory]
+MEMORY_TOOLS = [search_memory, save_memory, get_memory, list_memories, update_memory, delete_memory]
 ```
 
-**(c) LangGraph version** — the *same five tools and docstrings*, with three differences: decorate with
+**(c) LangGraph version** — the *same six tools and docstrings*, with three differences: decorate with
 `@tool`, take `config: RunnableConfig` instead of `ctx`, and read scope from the config. Wrap them in a
-`memory_tools()` factory. One tool shown; apply the identical change to the other four:
+`memory_tools()` factory. One tool shown; apply the identical change to the other five:
 
 ```python
 from langchain_core.runnables import RunnableConfig
@@ -317,14 +361,17 @@ def memory_tools():
     async def save_memory(path: str, config: RunnableConfig, description: str, contents: str = "") -> str:
         """<same docstring as the OpenAI save_memory above>"""
         return _save(_scope(config), path, description, contents)
-    # get_memory / list_memories / update_memory / delete_memory: identical bodies, calling
-    # _get/_list/_update/_delete(_scope(config), ...). `config` is injected by LangChain and hidden
-    # from the model.
-    return [save_memory, get_memory, list_memories, update_memory, delete_memory]
+    # search_memory / get_memory / list_memories / update_memory / delete_memory: identical bodies,
+    # calling _search/_get/_list/_update/_delete(_scope(config), ...). `config` is injected by
+    # LangChain and hidden from the model.
+    return [search_memory, save_memory, get_memory, list_memories, update_memory, delete_memory]
 ```
 
-> **Search:** recall is intentionally `list_memories → get_memory` (V1 search is an unreliable O(N) keyword
-> scan). If you want it later, add a tool over `POST {BASE}/entries:search {scope, query, top_k}`.
+> **Search is lexical.** `search_memory` is a **BM25 keyword search** (`entries:search`), not
+> semantic/embedding search — matching needs word overlap with the stored entry, which is why the tool
+> prompt says to query with "the words you'd expect to appear in the memory itself." Scores are unbounded
+> (use them to rank, not as a 0–1 confidence), and results inline each entry's full contents so recall is
+> a single call — no `get_memory` follow-up.
 
 ## Step 4 — Register the tools and wire scope (fail closed, additive)
 
@@ -402,12 +449,12 @@ Match the wording to the scope you chose in Step 1. The prompt below is the per-
 ```python
 MEMORY_INSTRUCTIONS = """You have durable, cross-session memory about whoever (or whatever) this conversation is scoped to. Use it deliberately, not by reflex.
 
-Recall whenever the answer is about the user or calls for personalized information — anything that might draw on preferences, decisions, or workflows they've shared before — and you don't already have it from this conversation; also list once before saving, to find the right existing topic. Don't tell the user you don't know their preferences without checking — list_memories first. Skip memory only when the answer truly doesn't depend on who's asking (general knowledge, math, coding) or you already have what you need. A `[has_contents]` entry has a body to get_memory; one without is fully captured by its description. Open a memory with get_memory before you state its specifics, and never assert a fact that isn't stored — if nothing relevant is stored, just answer without it. Don't re-list what you've already seen this turn.
+Recall means search_memory. Search before answering whenever the request might depend on something the user told you before — preferences, personal facts, project context, how they like things done — and you don't already have it from this conversation; also search once before saving, to find the right existing topic. Prefer searching over guessing: don't tell the user you don't know their preferences without searching first. Query with either a natural-language question or keywords — use the words you'd expect to appear in the memory itself — and pick top_k for how broad the topic is. Results are ranked and include each memory's full contents, so don't follow up with get_memory, and don't re-search a topic you've already seen this turn. An empty result means nothing matched those words, not that nothing is stored. Skip memory only when the answer truly doesn't depend on who's asking (general knowledge, math, coding) or you already have what you need. Never assert a fact that isn't stored — if nothing relevant is found, just answer without it. Reserve list_memories for when the complete inventory is the point (e.g. "what do you remember about me?").
 
 Save only what will still matter in a future, unrelated conversation — a stable preference, fact, decision, or ongoing project the user actually stated or decided. Don't save your own suggestions or guesses, passing chatter, secrets, or anything scoped to this chat ("for now", a one-off label).
 - Write each memory so it stands on its own out of context, under one broad, stable /memories/... topic per subject with the specifics inside it.
-- Check the list first and update_memory an existing topic instead of minting a near-duplicate.
-- For a very broad question that touches many memories, summarize from the list's descriptions; reserve get_memory for the specific entry you actually need.
+- search_memory the topic first and update_memory an existing entry instead of minting a near-duplicate.
+- For a very broad question that touches many memories, raise top_k or fall back to list_memories and summarize from descriptions.
 - If the user's info changes or contradicts what's stored, update or replace it rather than keeping both — but don't rewrite a memory that already says the same thing.
 - delete_memory what's stale.
 - Briefly tell the user whenever you save, update, or delete."""
@@ -437,6 +484,7 @@ curl -X POST https://<app-url>/invocations -H "Authorization: Bearer $TOKEN" \
 - **Path:** starts `/memories/`, ≤1024 chars, no whitespace/control chars/empty segments/trailing `/`. Re-creating a path → `ALREADY_EXISTS` (use `update_memory`).
 - **Update:** pass `description` to replace the one-line description, and/or one contents edit op. `str_replace.old_str` must match exactly once or `INVALID_PARAMETER_VALUE` — `get_memory` to re-read and retry with more surrounding text.
 - **List volume:** ≤ ~5000 entries per `(store, scope)`, no "more" signal yet.
+- **Search:** lexical BM25 (`entries:search`), not semantic — matches need word overlap with the entry; `top_k` default 10, max 50; scores are unbounded (ranking only). Newly written entries can take a few seconds to become searchable (`list`/`get` see them immediately).
 - **Retryable:** `ABORTED` (concurrent write) and transient `5xx`/`DEADLINE_EXCEEDED` are safe to retry; `INVALID_PARAMETER_VALUE`/`NOT_FOUND`/`ALREADY_EXISTS` aren't.
 
 ## Troubleshooting
@@ -448,6 +496,8 @@ curl -X POST https://<app-url>/invocations -H "Authorization: Bearer $TOKEN" \
 | `PERMISSION_DENIED` | caller lacks `READ/WRITE_MEMORY_STORE` | Grant the app SP / your user — Step 2 |
 | `NOT_FOUND` on **every** call | wrong store name / store doesn't exist | Re-check `DATABRICKS_MEMORY_STORE` is the full `catalog.schema.name` (confirm with the Step 1 `GET`) |
 | `ALREADY_EXISTS` on save | path is taken | `update_memory`, or pick a fresh path |
+| `search_memory` misses a memory saved moments ago | the search index lags writes by a few seconds | Expected (beta) — the fact is still in the conversation context, and `list_memories` shows it immediately |
+| `search_memory` 404s but the other tools work | `entries:search` not yet rolled out to this workspace | Check the endpoint with a direct curl; fall back to `list_memories` + `get_memory` recall until it's available |
 | Tools still hit a vector store (LangGraph advanced) | old `AsyncDatabricksStore` `memory_tools()` not removed | Drop `store=` and the old factory; keep the checkpointer |
 
 ## Notes
