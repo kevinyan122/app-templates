@@ -161,6 +161,10 @@ def resolve_scope(request=None) -> str | None:
     ci = dict(getattr(request, "custom_inputs", None) or {})
     return headers.get("x-forwarded-user") or ci.get("user_id")
 
+# Appended to save/update results when the description balloons — arrives exactly when the model
+# misbehaves, so it self-corrects without a standing rule.
+_DESC_NUDGE = " Note: that description is long — keep it a one-line label and move the details into contents."
+
 # The six operations. `scope` is passed in (never model-supplied). Each returns a short string.
 def _save(scope, path, description, contents=""):
     try:
@@ -172,7 +176,7 @@ def _save(scope, path, description, contents=""):
         if e.error_code == "ALREADY_EXISTS":
             return f"A memory already exists at {path}; use update_memory to revise it."
         return f"Could not save {path}: {getattr(e, 'message', str(e))}"
-    return f"Saved memory at {path}."
+    return f"Saved memory at {path}." + (_DESC_NUDGE if len(description) > 120 and not contents else "")
 
 def _get(scope, path):
     try:
@@ -237,7 +241,7 @@ def _update(scope, path, op=None, description=None):  # op = at most one of str_
             return f"No memory at {path} to update — check list_memories or save it first."
         # e.g. str_replace.old_str matched 0 or >1 times -> return it so the model re-reads and retries.
         return f"Could not update {path}: {getattr(e, 'message', str(e))}"
-    return f"Updated {path}."
+    return f"Updated {path}." + (_DESC_NUDGE if description and len(description) > 120 and not op else "")
 
 def _delete(scope, path):
     try:
@@ -301,8 +305,11 @@ async def save_memory(ctx: RunContextWrapper[MemoryContext], path: str, descript
     /memories/, ends .md) — keep it broad and reusable (e.g. /memories/preferences/food.md); put the
     specifics in description/contents, NOT the path, so related facts share one path and you update it
     instead of minting near-duplicates (avoid over-specific paths like /memories/preferences/coffee-oat-milk.md).
-    description: a one-line statement; for a brief fact this IS the memory (leave contents empty).
-    contents: OPTIONAL — only when the memory needs more than one line; detailed; never echo the description."""
+    description: ONE short, specific line summarizing what's inside (e.g. "Kitchen reno: ~30k CAD,
+    galley layout, done end of summer") — not a vague category like "Home projects". A single brief
+    fact can be the whole description, with contents empty.
+    contents: the memory itself — required once there's a second fact, date, number, or any structure
+    (bullets welcome); never echo the description."""
     return _save(_scope(ctx), path, description, contents)
 
 @function_tool
@@ -329,7 +336,8 @@ async def update_memory(ctx: RunContextWrapper[MemoryContext], path: str, descri
     replace its one-line description (use this to correct a brief, description-only memory), and/or EXACTLY
     ONE contents edit op — str_replace={"old_str": ..., "new_str": ...} (old_str must occur once) ·
     insert={"insert_text": ..., "insert_line": <optional>} · replace_all={"contents": ...}. get_memory first
-    so a contents edit matches; at least one of description / an edit op is required."""
+    so a contents edit matches; at least one of description / an edit op is required. New facts go in
+    contents, not a longer description — a description outgrowing one line means details belong in contents."""
     op = {k: v for k, v in (("str_replace", str_replace), ("insert", insert), ("replace_all", replace_all)) if v}
     return _update(_scope(ctx), path, op, description)
 
@@ -453,6 +461,7 @@ Recall means search_memory. Search before answering whenever the request might d
 
 Save only what will still matter in a future, unrelated conversation — a stable preference, fact, decision, or ongoing project the user actually stated or decided. Don't save your own suggestions or guesses, passing chatter, secrets, or anything scoped to this chat ("for now", a one-off label).
 - Write each memory so it stands on its own out of context, under one broad, stable /memories/... topic per subject with the specifics inside it.
+- Keep each description a one-line label; details, dates, numbers, and lists go in contents.
 - search_memory the topic first and update_memory an existing entry instead of minting a near-duplicate.
 - For a very broad question that touches many memories, raise top_k or fall back to list_memories and summarize from descriptions.
 - If the user's info changes or contradicts what's stored, update or replace it rather than keeping both — but don't rewrite a memory that already says the same thing.
