@@ -163,7 +163,14 @@ def resolve_scope(request=None) -> str | None:
 
 # Appended to save/update results when the description balloons — arrives exactly when the model
 # misbehaves, so it self-corrects without a standing rule.
-_DESC_NUDGE = " Note: that description is long — keep it a one-line label and move the details into contents."
+def _desc_nudge(description, has_contents):
+    if not description:
+        return ""
+    if not has_contents and len(description) > 120:
+        return " Note: that description is long — keep it a one-line label and move the details into contents."
+    if has_contents and len(description) > 150:
+        return " Note: that description is long — the details are already in contents; trim it to one line."
+    return ""
 
 # The six operations. `scope` is passed in (never model-supplied). Each returns a short string.
 def _save(scope, path, description, contents=""):
@@ -176,7 +183,7 @@ def _save(scope, path, description, contents=""):
         if e.error_code == "ALREADY_EXISTS":
             return f"A memory already exists at {path}; use update_memory to revise it."
         return f"Could not save {path}: {getattr(e, 'message', str(e))}"
-    return f"Saved memory at {path}." + (_DESC_NUDGE if len(description) > 120 and not contents else "")
+    return f"Saved memory at {path}." + _desc_nudge(description, bool(contents))
 
 def _get(scope, path):
     try:
@@ -241,7 +248,7 @@ def _update(scope, path, op=None, description=None):  # op = at most one of str_
             return f"No memory at {path} to update — check list_memories or save it first."
         # e.g. str_replace.old_str matched 0 or >1 times -> return it so the model re-reads and retries.
         return f"Could not update {path}: {getattr(e, 'message', str(e))}"
-    return f"Updated {path}." + (_DESC_NUDGE if description and len(description) > 120 and not op else "")
+    return f"Updated {path}." + _desc_nudge(description, bool(op))
 
 def _delete(scope, path):
     try:
@@ -300,7 +307,8 @@ async def search_memory(ctx: RunContextWrapper[MemoryContext], query: str, top_k
 @function_tool(strict_mode=False)
 async def save_memory(ctx: RunContextWrapper[MemoryContext], path: str, description: str, contents: str = "") -> str:
     """Create ONE durable memory — a stable preference, fact, decision, or ongoing project; not one-off
-    chatter or secrets. Create-only (an existing path errors), so search_memory the topic first and use
+    chatter, secrets, or anything the user scoped to this conversation ("for this chat only" = never
+    save). Create-only (an existing path errors), so search_memory the topic first and use
     update_memory to revise a topic. path: a SHORT, STABLE topic bucket (lowercase-hyphenated, starts
     /memories/, ends .md) — keep it broad and reusable (e.g. /memories/preferences/food.md); put the
     specifics in description/contents, NOT the path, so related facts share one path and you update it
@@ -337,7 +345,9 @@ async def update_memory(ctx: RunContextWrapper[MemoryContext], path: str, descri
     ONE contents edit op — str_replace={"old_str": ..., "new_str": ...} (old_str must occur once) ·
     insert={"insert_text": ..., "insert_line": <optional>} · replace_all={"contents": ...}. get_memory first
     so a contents edit matches; at least one of description / an edit op is required. New facts go in
-    contents, not a longer description — a description outgrowing one line means details belong in contents."""
+    contents, not a longer description — a description outgrowing one line means details belong in contents.
+    After a contents edit, refresh a stale or overlong description (it must stay a current one-line
+    summary); if the entry already says it, skip the update entirely and just confirm to the user."""
     op = {k: v for k, v in (("str_replace", str_replace), ("insert", insert), ("replace_all", replace_all)) if v}
     return _update(_scope(ctx), path, op, description)
 
@@ -457,9 +467,9 @@ Match the wording to the scope you chose in Step 1. The prompt below is the per-
 ```python
 MEMORY_INSTRUCTIONS = """You have durable, cross-session memory about whoever (or whatever) this conversation is scoped to. Use it deliberately, not by reflex.
 
-Recall means search_memory. Search before answering whenever the request might depend on something the user told you before — preferences, personal facts, project context, how they like things done — and you don't already have it from this conversation; also search once before saving, to find the right existing topic. Prefer searching over guessing: don't tell the user you don't know their preferences without searching first. Query with either a natural-language question or keywords — use the words you'd expect to appear in the memory itself — and pick top_k for how broad the topic is. Results are ranked and include each memory's full contents, so don't follow up with get_memory, and don't re-search a topic you've already seen this turn. An empty result means nothing matched those words, not that nothing is stored. Skip memory only when the answer truly doesn't depend on who's asking (general knowledge, math, coding) or you already have what you need. Never assert a fact that isn't stored — if nothing relevant is found, just answer without it. Reserve list_memories for when the complete inventory is the point (e.g. "what do you remember about me?").
+Recall means search_memory. Search before answering whenever the request might depend on something the user told you before — preferences, personal facts, project context, how they like things done — and you don't already have it from this conversation; also search once before saving, to find the right existing topic. Prefer searching over guessing: don't tell the user you don't know their preferences without searching first. Any recommendation, suggestion, plan, or draft made for the user — what to eat or order, what to buy, what to write, how to schedule — depends on who's asking: search first even though you could answer generically; a generic answer to a personal question is the failure, not a fallback. If you're about to ask the user a fact about themselves (allergies? location? preferences? team?), search first — it's often already stored. Query with either a natural-language question or keywords — use the words you'd expect to appear in the memory itself — and pick top_k for how broad the topic is. Results are ranked and include each memory's full contents, so don't follow up with get_memory, and don't re-search a topic you've already seen this turn. An empty result means nothing matched those words, not that nothing is stored. Skip memory only for impersonal questions of fact or skill (math, definitions, code mechanics) where nothing about the user could change the answer, or when you already have what you need. Never assert a fact that isn't stored — if nothing relevant is found, just answer without it. Reserve list_memories for when the complete inventory is the point (e.g. "what do you remember about me?").
 
-Save only what will still matter in a future, unrelated conversation — a stable preference, fact, decision, or ongoing project the user actually stated or decided. Don't save your own suggestions or guesses, passing chatter, secrets, or anything scoped to this chat ("for now", a one-off label).
+Save only what will still matter in a future, unrelated conversation — a stable preference, fact, decision, or ongoing project the user actually stated or decided. Don't save your own suggestions or guesses, passing chatter, secrets, or anything scoped to this chat ("for now", a one-off label). If the user marks something as temporary or session-scoped ("for now", "just for this conversation"), honor it in the moment and let it end with the chat — never save it, not even labeled as temporary.
 - Write each memory so it stands on its own out of context, under one broad, stable /memories/... topic per subject with the specifics inside it.
 - Keep each description a one-line label; details, dates, numbers, and lists go in contents.
 - search_memory the topic first and update_memory an existing entry instead of minting a near-duplicate.
