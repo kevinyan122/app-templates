@@ -125,7 +125,7 @@ from agent_server.utils import get_user_workspace_client
 #   create  POST {BASE}/entries?scope=…   {path,contents,description,creation_reason,creation_source}  (flat body; scope is a query param)
 #   search  POST {BASE}/entries:search    ?scope  {query,top_k} -> {results:[{memory_entry:{path,description,contents,…}, score}]}  (lexical BM25)
 #   get     GET  {BASE}/entries:get       ?scope,path        -> {contents, description, ...}
-#   list    GET  {BASE}/entries           ?scope             -> {entries:[{path,description,has_contents}]}  (key omitted entirely when empty)
+#   list    GET  {BASE}/entries           ?scope[,page_size,page_token] -> {entries:[{path,description,has_contents}], next_page_token?}  (entries key omitted entirely when empty)
 #   update  PATCH{BASE}/entries          {scope, path, [description], [one contents edit op]}  (>=1 of the two)
 #   delete  DELETE {BASE}/entries         ?scope,path
 
@@ -216,21 +216,34 @@ def _search(scope, query, top_k=10):
         lines.append(line)
     return f"{len(results)} matches for '{query}' (full contents shown — no get_memory needed):\n" + "\n".join(lines)
 
-def _list(scope):
+_LIST_PAGE_SIZE = 200
+
+def _list(scope, page_token=None):
+    query = {"scope": scope, "page_size": _LIST_PAGE_SIZE}
+    if page_token:
+        query["page_token"] = page_token
     try:
-        resp = _ws().api_client.do("GET", _entries(), query={"scope": scope})
+        resp = _ws().api_client.do("GET", _entries(), query=query)
     except DatabricksError as e:
         return f"Could not list memories: {getattr(e, 'message', str(e))}"
     items = resp.get("entries", [])
     if not items:
-        return "No memories yet."
+        return "No more memories." if page_token else "No memories yet."
     # Count header (the model is unreliable at tallying a long list); `[has_contents]` marks entries
     # whose body must be read with get_memory — unmarked entries are captured by their description.
     lines = [
         ("[has_contents] " if e.get("has_contents") else "") + f"- {e['path']}: {e.get('description', '')}"
         for e in items
     ]
-    return f"{len(items)} memories total:\n" + "\n".join(lines)
+    header = f"{len(items)} memories" + (" (continued)" if page_token else "")
+    out = f"{header}:\n" + "\n".join(lines)
+    next_token = resp.get("next_page_token")
+    if next_token:
+        out += (
+            f"\nMore memories exist — call list_memories again with "
+            f"page_token='{next_token}' if you need the rest."
+        )
+    return out
 
 def _update(scope, path, op=None, description=None):  # op = at most one of str_replace/insert/replace_all
     op = op or {}
@@ -300,7 +313,8 @@ async def search_memory(ctx: RunContextWrapper[MemoryContext], query: str, top_k
 
     Returns up to top_k entries, each with: path, description, contents, and a relevance score
     (higher = better). Results are already ranked — the top entries are the best matches. An
-    empty result means nothing matched these words, not that the user has no stored memories."""
+    empty result means nothing matched these words, not that the user has no stored memories.
+    Don't re-search a topic you've already seen this turn."""
     return _search(_scope(ctx), query, top_k)
 
 # strict_mode=False: lets `contents` be genuinely optional / allows free-form dict edit ops.
@@ -327,14 +341,16 @@ async def get_memory(ctx: RunContextWrapper[MemoryContext], path: str) -> str:
     Not found means it isn't stored, not that the fact is false."""
     return _get(_scope(ctx), path)
 
-@function_tool
-async def list_memories(ctx: RunContextWrapper[MemoryContext]) -> str:
+@function_tool(strict_mode=False)
+async def list_memories(ctx: RunContextWrapper[MemoryContext], page_token: str | None = None) -> str:
     """List EVERY saved memory as (path, description) — the full index; returns NO contents. NOT for
     recall — use search_memory for that. Reserve this for when the complete inventory is the point
     (e.g. the user asks "what do you remember about me?") or a search found nothing.
     An entry prefixed `[has_contents]` has a fuller body — get_memory(path) to read it before stating
-    specifics; an entry without that prefix is fully captured by its description. One call per turn."""
-    return _list(_scope(ctx))
+    specifics; an entry without that prefix is fully captured by its description. If the result notes
+    more memories exist, call again with the given page_token only if you need the rest. Omit
+    page_token to start from the beginning."""
+    return _list(_scope(ctx), page_token)
 
 @function_tool(strict_mode=False)
 async def update_memory(ctx: RunContextWrapper[MemoryContext], path: str, description: str | None = None,
@@ -467,7 +483,7 @@ Match the wording to the scope you chose in Step 1. The prompt below is the per-
 ```python
 MEMORY_INSTRUCTIONS = """You have durable, cross-session memory about whoever (or whatever) this conversation is scoped to. Use it deliberately, not by reflex.
 
-Recall means search_memory. Search before answering whenever the request might depend on something the user told you before — preferences, personal facts, project context, how they like things done — and you don't already have it from this conversation; also search once before saving, to find the right existing topic. Prefer searching over guessing: don't tell the user you don't know their preferences without searching first. Any recommendation, suggestion, plan, or draft made for the user — what to eat or order, what to buy, what to write, how to schedule — depends on who's asking: search first even though you could answer generically; a generic answer to a personal question is the failure, not a fallback. If you're about to ask the user a fact about themselves (allergies? location? preferences? team?), search first — it's often already stored. Query with either a natural-language question or keywords — use the words you'd expect to appear in the memory itself — and pick top_k for how broad the topic is. Results are ranked and include each memory's full contents, so don't follow up with get_memory, and don't re-search a topic you've already seen this turn. An empty result means nothing matched those words, not that nothing is stored. Skip memory only for impersonal questions of fact or skill (math, definitions, code mechanics) where nothing about the user could change the answer, or when you already have what you need. Never assert a fact that isn't stored — if nothing relevant is found, just answer without it. Reserve list_memories for when the complete inventory is the point (e.g. "what do you remember about me?").
+Recall means search_memory. Search before answering whenever the request might depend on something the user told you before — preferences, personal facts, project context, how they like things done — and you don't already have it from this conversation; also search once before saving, to find the right existing topic/path. Prefer searching over guessing: don't ask the user anything about them or tell the user you don't know something about them without searching first. Any recommendation, suggestion, plan, or draft made for the user, anything that depends on who's asking: search first even though you could answer generically; a generic answer to a personal question is the failure, not a fallback. Skip memory only for impersonal questions of fact or skill (math, definitions, code mechanics) where nothing about the user could change the answer, or when you already have what you need. Never assert a fact that isn't stored — if nothing relevant is found, just answer without it. Reserve list_memories for when the complete inventory is the point (e.g. "what do you remember about me?").
 
 Save only what will still matter in a future, unrelated conversation — a stable preference, fact, decision, or ongoing project the user actually stated or decided. Don't save your own suggestions or guesses, passing chatter, secrets, or anything scoped to this chat ("for now", a one-off label). If the user marks something as temporary or session-scoped ("for now", "just for this conversation"), honor it in the moment and let it end with the chat — never save it, not even labeled as temporary.
 - Write each memory so it stands on its own out of context, under one broad, stable /memories/... topic per subject with the specifics inside it.
@@ -502,7 +518,7 @@ curl -X POST https://<app-url>/invocations -H "Authorization: Bearer $TOKEN" \
 
 - **Path:** starts `/memories/`, ≤1024 chars, no whitespace/control chars/empty segments/trailing `/`. Re-creating a path → `ALREADY_EXISTS` (use `update_memory`).
 - **Update:** pass `description` to replace the one-line description, and/or one contents edit op. `str_replace.old_str` must match exactly once or `INVALID_PARAMETER_VALUE` — `get_memory` to re-read and retry with more surrounding text.
-- **List volume:** ≤ ~5000 entries per `(store, scope)`, no "more" signal yet.
+- **List volume:** ≤ ~5000 entries per `(store, scope)`. List paginates: pass `page_size` and follow `next_page_token` (`page_token` param; URL-encode it — it can contain `+`/`=`). `max_results` is silently ignored; `page_size` is the real parameter, with no documented server default or max yet.
 - **Search:** lexical BM25 (`entries:search`), not semantic — matches need word overlap with the entry; `top_k` default 10, max 50; scores are unbounded (ranking only). Newly written entries can take a few seconds to become searchable (`list`/`get` see them immediately).
 - **Retryable:** `ABORTED` (concurrent write) and transient `5xx`/`DEADLINE_EXCEEDED` are safe to retry; `INVALID_PARAMETER_VALUE`/`NOT_FOUND`/`ALREADY_EXISTS` aren't.
 
