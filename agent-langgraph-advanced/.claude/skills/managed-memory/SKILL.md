@@ -161,17 +161,6 @@ def resolve_scope(request=None) -> str | None:
     ci = dict(getattr(request, "custom_inputs", None) or {})
     return headers.get("x-forwarded-user") or ci.get("user_id")
 
-# Appended to save/update results when the description balloons — arrives exactly when the model
-# misbehaves, so it self-corrects without a standing rule.
-def _desc_nudge(description, has_contents):
-    if not description:
-        return ""
-    if not has_contents and len(description) > 120:
-        return " Note: that description is long — keep it a one-line label and move the details into contents."
-    if has_contents and len(description) > 150:
-        return " Note: that description is long — the details are already in contents; trim it to one line."
-    return ""
-
 # The six operations. `scope` is passed in (never model-supplied). Each returns a short string.
 def _save(scope, path, description, contents=""):
     try:
@@ -183,7 +172,7 @@ def _save(scope, path, description, contents=""):
         if e.error_code == "ALREADY_EXISTS":
             return f"A memory already exists at {path}; use update_memory to revise it."
         return f"Could not save {path}: {getattr(e, 'message', str(e))}"
-    return f"Saved memory at {path}." + _desc_nudge(description, bool(contents))
+    return f"Saved memory at {path}."
 
 def _get(scope, path):
     try:
@@ -261,7 +250,7 @@ def _update(scope, path, op=None, description=None):  # op = at most one of str_
             return f"No memory at {path} to update — check list_memories or save it first."
         # e.g. str_replace.old_str matched 0 or >1 times -> return it so the model re-reads and retries.
         return f"Could not update {path}: {getattr(e, 'message', str(e))}"
-    return f"Updated {path}." + _desc_nudge(description, bool(op))
+    return f"Updated {path}."
 
 def _delete(scope, path):
     try:
@@ -343,8 +332,8 @@ async def get_memory(ctx: RunContextWrapper[MemoryContext], path: str) -> str:
 
 @function_tool(strict_mode=False)
 async def list_memories(ctx: RunContextWrapper[MemoryContext], page_token: str | None = None) -> str:
-    """List EVERY saved memory as (path, description) — the full index; returns NO contents. NOT for
-    recall — use search_memory for that. Reserve this for when the complete inventory is the point
+    """List EVERY saved memory as (path, description) — the full index; returns NO contents.
+    Reserve this for when the complete inventory is the point
     (e.g. the user asks "what do you remember about me?") or a search found nothing.
     An entry prefixed `[has_contents]` has a fuller body — get_memory(path) to read it before stating
     specifics; an entry without that prefix is fully captured by its description. If the result notes
