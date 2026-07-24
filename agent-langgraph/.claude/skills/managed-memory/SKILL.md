@@ -224,9 +224,11 @@ def _list(scope, page_token=None):
         ("[has_contents] " if e.get("has_contents") else "") + f"- {e['path']}: {e.get('description', '')}"
         for e in items
     ]
-    header = f"{len(items)} memories" + (" (continued)" if page_token else "")
-    out = f"{header}:\n" + "\n".join(lines)
     next_token = resp.get("next_page_token")
+    header = f"{len(items)} memories" + (" (continued)" if page_token else "")
+    if next_token and not page_token:
+        header = "first " + header
+    out = f"{header}:\n" + "\n".join(lines)
     if next_token:
         out += (
             f"\nMore memories exist — call list_memories again with "
@@ -326,7 +328,8 @@ async def save_memory(ctx: RunContextWrapper[MemoryContext], path: str, descript
 @function_tool
 async def get_memory(ctx: RunContextWrapper[MemoryContext], path: str) -> str:
     """Read the FULL contents of ONE memory by its exact path. Rarely needed — search_memory already
-    returns full contents; use this only for a `[has_contents]` entry you spotted via list_memories.
+    returns full contents; use this for a `[has_contents]` entry you spotted via list_memories, or to
+    re-read an entry before a contents edit (search results can lag recent writes).
     Not found means it isn't stored, not that the fact is false."""
     return _get(_scope(ctx), path)
 
