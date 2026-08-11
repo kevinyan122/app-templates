@@ -1,0 +1,787 @@
+{
+  "schema_version": "realistic-search-scenario-reviews-v1",
+  "generated_at": "2026-08-04T21:48:56.664189+00:00",
+  "model_endpoint": "databricks-gpt-5-2",
+  "source_drafts": "shared_memory_eval/realistic_search_benchmark/artifacts/pilot_enriched.json",
+  "benchmark_as_of_date": "2026-06-05",
+  "summary": {
+    "cases": 25,
+    "accepted_by_both": 23,
+    "disagreements": 2,
+    "rejected_by_both": 0,
+    "review_queue_case_ids": [
+      "people-owen-escalation-contact",
+      "people-sasha-comms-training-partner"
+    ],
+    "critic_acceptance": {
+      "critic-evidence": 23,
+      "critic-realism": 25
+    }
+  },
+  "global_checks": {
+    "candidate_memory_occurrences": 60,
+    "unique_fact_sets": 60,
+    "duplicate_fact_set_groups": [],
+    "duplicate_description_groups": []
+  },
+  "cases": [
+    {
+      "case_id": "people-owen-escalation-contact",
+      "status": "disagreement",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0021 states Owen leads IT Services and is the main rollout/support contact. However mem-0001 also states Owen Reed was named escalation contact and that IT Services administers LanternDesk; combined with its explicit mention of escalation contact for system/access issues, it effectively identifies him as a key support/escalation contact. Since query asks general point of contact for systems rollouts/support workflows, mem-0001 can independently yield essentially the same answer (Owen/IT Services lead contact) without meaningful inference.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0001"
+          ],
+          "suggested_repair": "Tighten answer_should/query to require the exact phrasing \"Owen leads IT Services\" (lead role), which is only in mem-0021, or remove Owen-from-pilot mentions from non-gold memories."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Query asks for org-wide IT Services lead/general rollout & support contact (not pilot-specific). mem-0021 explicitly says Owen leads IT Services and is the main rollout/support contact. mem-0001 is limited to Shift Coverage Pilot escalation contact; mem-0010 only says IT Services administers LanternDesk; mem-0032 is a preference about async coordination.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "people-sasha-comms-training-partner",
+      "status": "disagreement",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0022 contains both: Sasha is a communications specialist and she partners with Mara in the Comms & Training WG. But mem-0042 also states Sasha Kim and Mara Lin continued work through the Comms & Training Working Group preparing staff-facing updates/training announcements; it is sufficient to answer the working-group part and implies the comms function, effectively satisfying the rubric without needing mem-0022.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0042"
+          ],
+          "suggested_repair": "Make answer_should require the explicit job title string \"communications specialist\"; only mem-0022 states that directly."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0022 uniquely provides both requested elements: Sasha’s exact job title ('communications specialist') and that she works with Mara in the Comms & Training Working Group. mem-0041/mem-0042 mention partnership via the working group but do not state her job title, so they are not independently sufficient.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "people-jordan-package-backup",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0019 explicitly states Jordan is Mara’s neighbor and occasional running buddy; other memories only cover package fallback (mem-0013) or unrelated household roles.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0019 directly states Jordan is Mara’s neighbor and occasional running buddy, which answers both parts. mem-0013 only covers package fallback behavior and lacks the social/activity details.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "preference-calendar-source-of-truth",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0030 directly states Aurora Calendar is Mara’s scheduling source of truth for work and personal scheduling; context memories mention using Aurora Calendar but do not set the preference rule.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0030 explicitly states Aurora Calendar is Mara’s scheduling source of truth (work and personal), matching the conflict-resolution question. Context memories describe calendar usage but do not establish the priority rule.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "preference-concise-up-front-updates",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0031 explicitly states Mara prefers summary/next steps first with details only on request; related memories discuss recaps/notes but not this update-structure preference.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0031 states Mara wants summary/next steps first and details only when requested, which directly answers how to structure updates. mem-0029 is about written recaps in Pine Notes after fast meetings; mem-0050 is about the 'Next steps' label in meeting notes—both are related but not the update-structure preference.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "preference-morning-focus-time",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0028 directly states Mara prefers morning focus time and meetings later; other memories mention calendar usage but not this specific preference.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0028 explicitly states Mara prefers morning focus time and meetings later when possible. Other memories reference scheduling but do not define this time-of-day preference.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "preference-poppy-long-walk-morning",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0027 contains the temporal change (April 15, 2026) and the current preference: longer walk in the morning; other pet/household memories do not specify long-walk timing preference.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0027 contains the temporal change (since 2026-04-15) and the current preference: longer walk in the morning, not after work. Other household/pet memories (midday walk, vet reminder, food storage) don’t specify long-walk timing.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "project-coverage-pilot-tracking",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0035 explicitly states all Shift Coverage Pilot requests/issues should be logged as LanternDesk tickets; other project memories discuss site/feedback/expansion but not the tracking system requirement.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0035 states all Shift Coverage Pilot requests/issues should be logged as LanternDesk tickets. Other pilot memories cover site, feedback, and expansion but not the required tracking system.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "project-kb-refresh-ownership",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0039 states Ops Programs owns KB Refresh and Mara coordinates scope/milestones; other memories cover drafts or IT gate but not ownership.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0039 explicitly states Ops Programs owns the KB Refresh and Mara coordinates scope/milestones. Other KB Refresh memories cover drafts location (Pine Notes), IT review gate, or status check-ins, but not ownership.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "project-kb-refresh-it-approver",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0038 uniquely states Owen approves IT review for KB Refresh changes touching LanternDesk; other memories mention Owen/IT generally or LanternDesk tracking but not this specific approver gate.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0038 directly states Owen approves the required IT review for KB Refresh changes touching LanternDesk procedures. No other non-gold memory names the approver for this specific gate.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "project-sro-kickoff-location",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0042 states Summer Reading Ops 2026 began with an in-person working session at Brightgrove HQ; no other memory in pool states kickoff location as directly.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0042 states Summer Reading Ops 2026 kicked off with an in-person working session at Brightgrove HQ, which fully answers. Other SRO memories in the pool do not independently state the kickoff location.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "project-coverage-pilot-expansion",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0033 explicitly answers both parts: expands to HQ teams after Riverbend and tests cross-site escalation; other memories cover current site, kickoff, or escalation ownership but not the expansion purpose.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0033 uniquely provides both parts: expansion to HQ-based teams after Riverbend and purpose (test cross-site escalation paths). Nearby memories cover Riverbend as current site, kickoff at HQ, or escalation ownership, but not this two-part expansion statement.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "decision-kb-freeze-window",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0003 explicitly gives Nina’s rationale for 2026-04-20 to 2026-04-30 freeze (clean review pass/avoid midstream edits). mem-0024 is a different freeze block (4/6–4/10) with different purpose, so not an alternative.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0003 records Nina’s approval and rationale for the 2026-04-20 to 2026-04-30 freeze: enable a clean review pass and avoid midstream edits. mem-0024 is a different earlier calendar block (Apr 6–10) with a different purpose, so it cannot answer the 'why Nina approved' question for the late-April window.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "decision-sro-training-format-current",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0004 states the final (non-superseded) hybrid training decision including both components and distribution via Comms & Training WG; mem-0005 is explicitly superseded and others are partial context.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0004 states the final (current) decision: hybrid training with a shorter in-person HQ session plus a recorded follow-up distributed by Comms & Training WG. mem-0005 is explicitly superseded; other SRO memories don’t fully specify the final format and distribution.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "decision-coverage-escalation-owner",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0001 directly states escalation for system/access problems goes to IT Services with Owen Reed as escalation contact; other memories discuss ticket logging or weekly triage but not the explicit escalation assignment.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0001 explicitly assigns escalation for system/access problems to IT Services and names Owen Reed as escalation contact. Other pilot workflow/project memories mention triage meetings or ticketing but not the escalation ownership decision with the named contact.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "global-tools-standards",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0007 (description) states Brightgrove uses Aurora Calendar for scheduling and LanternDesk for operational/IT requests; other memories mention single tools or admin teams but not the paired network standard.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0007 states the network-wide standard tools: Aurora Calendar for scheduling and LanternDesk for ops/IT requests. Other memories mention LanternDesk administration or Pine Notes usage but not this specific paired standard across Brightgrove.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "global-branch-leads-channel",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0006 defines Branch Leads Council as the standing channel for frontline feedback on network-wide operational changes before broad rollout; project-specific routing memories (mem-0002, mem-0036) are narrower and not sufficient for 'outside projects' standing role.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0006 defines the Branch Leads Council’s standing, non-project-specific role: frontline feedback on network-wide operational changes before broad rollout. mem-0002 is project-scoped (Shift Coverage Pilot) and cannot answer the 'outside individual projects' framing.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "workflow-notes-next-steps",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0050 explicitly states Mara’s meeting notes end with an action list labeled 'Next steps' (in Pine Notes). No other memory provides the exact label.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0050 states Mara’s meeting notes are in Pine Notes and end with an action-items list labeled 'Next steps', directly answering the label question. No other memory provides the exact label.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "workflow-route-requests",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0049 states Mara routes operational/IT requests through LanternDesk rather than email and gives rationale (owner/status/history). Other memories mention LanternDesk ownership or preferences but not this full workflow statement.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0049 states Mara routes operational/IT requests through LanternDesk rather than email, with rationale (owner/status/history). Other LanternDesk memories are tool ownership or project-specific ticketing and don’t establish this personal workflow rule.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "workflow-comms-approval",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0044 states Nina approves network-wide messages before Sasha sends them through Comms & Training; other people/role memories don’t specify the approval gate.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0044 explicitly states the approval gate: Mara gets Nina Patel’s sign-off before Sasha sends network-wide comms via Comms & Training WG. Context memories establish roles/working group but not the sign-off requirement.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "workflow-kb-intake-current",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0048 uniquely states the post-2026-05-01 intake: shared Pine Notes checklist, and LanternDesk tickets only for escalations/access problems; mem-0047 is the older (pre-5/1) process and thus not an alternative.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0048 clearly captures the current (starting 2026-05-01) KB Refresh intake: shared Pine Notes checklist for routine fixes; LanternDesk tickets only for escalations/access problems. mem-0047 is explicitly time-bounded to 2026-04-30 (old process) and cannot satisfy the 'now' question.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "household-trash-night",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0016 states Tuesday nights and the default rule (whoever is home last). Context memories are unrelated household processes and do not provide the routine.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0016 states both required details: Tuesday night curb routine and default responsibility (whoever is home last). No other memory in the pool provides both pieces.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "household-poppy-midday-walk",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0015 states that starting June 2026 Mara usually takes the weekday midday walk and blocks 20 minutes in Aurora Calendar; other memories cover long-walk preference or vet reminder/food storage.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0015 states that starting June 2026 Mara usually handles the weekday midday walk and blocks 20 minutes in Aurora Calendar. Other memories discuss long-walk timing preference or unrelated pet logistics and are not sufficient.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "plan-sro-staffing-guidance-deadline",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0026 gives the target date (2026-05-08) and that it’s the Summer Reading Ops staffing-guidance draft for Comms & Training review; other SRO memories do not include this specific deadline.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0026 provides the target date (2026-05-08) and what it’s for (SRO 2026 staffing guidance draft for Comms & Training WG review). Other SRO memories do not include this deadline.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "plan-ops-team-day",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0025 states Ops Programs team day is June 11 at HQ (and meeting-light). No other memory provides the date for this specific team day.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0025 states Ops Programs in-person team day at HQ is on 2026-06-11 (and meeting-light). No other memory provides the date, so gold is unique and sufficient.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    }
+  ]
+}

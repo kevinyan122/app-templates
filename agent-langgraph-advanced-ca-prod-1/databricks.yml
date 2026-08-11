@@ -1,0 +1,64 @@
+bundle:
+  name: agent_langgraph_advanced_ca
+
+resources:
+  apps:
+    agent_langgraph_advanced_ca:
+      name: "agent-langgraph-adv-kevin-ca"
+      description: "CA workspace copy of Kevin's LangGraph v1 app with managed long-term memory"
+      git_repository:
+        provider: gitHub
+        url: https://github.com/kevinyan122/app-templates
+      git_source:
+        branch: codex/ca-prod-v1-copy
+        source_code_path: agent-langgraph-advanced-ca-prod-1
+      config:
+        command: ["uv", "run", "start-app"]
+        env:
+          - name: MLFLOW_TRACKING_URI
+            value: "databricks"
+          - name: MLFLOW_REGISTRY_URI
+            value: "databricks-uc"
+          - name: API_PROXY
+            value: "http://localhost:8000/invocations"
+          - name: CHAT_APP_PORT
+            value: "3000"
+          - name: CHAT_PROXY_TIMEOUT_SECONDS
+            value: "300"
+          - name: MLFLOW_EXPERIMENT_ID
+            value_from: "experiment"
+          - name: DATABRICKS_MEMORY_STORE
+            value: "main.default.kevin_agent_v1_memory"
+          - name: DATABRICKS_CONVERSATIONS_ENABLED
+            # Databricks Apps currently rejects the Conversations API's umbrella
+            # Unity Catalog OAuth scope, so keep this beta path off in v1.
+            value: "false"
+          # Test deployment only: lets custom_inputs.eval_scope select the exact scope.
+          # Never enable this against a customer memory store.
+          - name: DATABRICKS_MEMORY_EVAL_MODE
+            value: "false"
+          - name: LOG_LEVEL
+            value: "INFO"
+
+      # Resources which this app has access to
+      resources:
+        - name: 'experiment'
+          experiment:
+            experiment_id: "1552416898906187"
+            permission: 'CAN_MANAGE'
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://eng-ml-inference-team-ca-central-1.cloud.databricks.com
+
+  prod:
+    mode: production
+    # workspace:
+    #   host: https://...
+    resources:
+      apps:
+        agent_langgraph_advanced_ca:
+          name: agent-langgraph-adv-kevin-ca

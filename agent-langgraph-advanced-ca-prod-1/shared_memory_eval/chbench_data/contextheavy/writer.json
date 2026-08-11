@@ -1,0 +1,26 @@
+{
+  "track": "writer",
+  "description": "A content writer/strategist accumulating editorial knowledge. Questions are deliberately HARD: paraphrased (low lexical overlap with the memory, defeats BM25), multi-hop (answer needs two chained memories), and distractor-heavy (several memories share vocabulary). Designed so recall@10 does not saturate.",
+  "memories": [
+    {"id": "wr-001", "text": "The house style forbids the Oxford comma in body copy but requires it in legal disclaimers.", "metadata": {"timestamp": "2026-01-04", "type": "style"}},
+    {"id": "wr-002", "text": "Long-form pieces are capped at 2,400 words; anything longer is split into a series.", "metadata": {"timestamp": "2026-01-06", "type": "format"}},
+    {"id": "wr-003", "text": "The newsletter goes out Tuesday at 9am; the blog publishes Thursday. Social teasers trail each by one day.", "metadata": {"timestamp": "2026-01-10", "type": "schedule"}},
+    {"id": "wr-004", "text": "Decision: we dropped the third-person brand voice for a first-person founder voice, because readers engaged 40% more with the founder's personal essays.", "metadata": {"timestamp": "2026-02-01", "type": "decision"}},
+    {"id": "wr-005", "text": "Every claim with a statistic must link a primary source; secondary aggregators are not acceptable citations.", "metadata": {"timestamp": "2026-02-12", "type": "policy"}},
+    {"id": "wr-006", "text": "The SEO target is one pillar page per quarter, each supported by six cluster posts that internally link up to it.", "metadata": {"timestamp": "2026-03-01", "type": "seo"}},
+    {"id": "wr-007", "text": "Guest contributors keep copyright but grant a perpetual, non-exclusive license; the contract template lives in the legal folder.", "metadata": {"timestamp": "2026-03-15", "type": "legal"}},
+    {"id": "wr-008", "text": "Image alt text is mandatory and must describe function, not appearance, for screen-reader users.", "metadata": {"timestamp": "2026-03-20", "type": "accessibility"}},
+    {"id": "wr-009", "text": "Headlines are A/B tested in the newsletter subject line before being reused on the blog.", "metadata": {"timestamp": "2026-04-02", "type": "process"}},
+    {"id": "wr-010", "text": "We sunset evergreen posts after 18 months unless traffic stays above 500 visits/month, in which case we refresh rather than retire them.", "metadata": {"timestamp": "2026-04-10", "type": "lifecycle"}}
+  ],
+  "questions": [
+    {"id": "wr-q1", "question": "When may I use a serial comma?", "answer": "Only in legal disclaimers — house style forbids the Oxford comma in body copy but requires it in disclaimers.", "relevant_ids": ["wr-001"], "metadata": {"type": "paraphrase"}},
+    {"id": "wr-q2", "question": "A piece I'm drafting will run about 3,000 words — what does that mean for how it ships, and which day would part one go live on the blog?", "answer": "Over the 2,400-word cap it must be split into a series; the blog publishes Thursday, so part one goes live Thursday.", "relevant_ids": ["wr-002", "wr-003"], "metadata": {"type": "multi-hop"}},
+    {"id": "wr-q3", "question": "Why did we stop writing about the company as 'they' and start writing as 'I'?", "answer": "Readers engaged 40% more with the founder's first-person personal essays, so the brand voice switched to first-person founder voice.", "relevant_ids": ["wr-004"], "metadata": {"type": "causal-paraphrase"}},
+    {"id": "wr-q4", "question": "Can I back a figure with a Statista summary?", "answer": "No — claims with a statistic must link a primary source; secondary aggregators aren't acceptable.", "relevant_ids": ["wr-005"], "metadata": {"type": "paraphrase"}},
+    {"id": "wr-q5", "question": "If I write a new cornerstone article, how many supporting posts should point at it and over what period are they expected?", "answer": "Six cluster posts internally link up to each pillar page, at a cadence of one pillar per quarter.", "relevant_ids": ["wr-006"], "metadata": {"type": "paraphrase"}},
+    {"id": "wr-q6", "question": "A two-year-old tutorial still pulls about 800 visits a month — do we kill it?", "answer": "No — posts past 18 months are retired only if traffic is below 500 visits/month; at 800 it gets refreshed, not sunset.", "relevant_ids": ["wr-010"], "metadata": {"type": "conditional-paraphrase"}},
+    {"id": "wr-q7", "question": "Who owns the rights to a piece written by an outside contributor, and where's the paperwork?", "answer": "The guest contributor keeps copyright (granting a perpetual non-exclusive license); the contract template is in the legal folder.", "relevant_ids": ["wr-007"], "metadata": {"type": "multi-part"}},
+    {"id": "wr-q8", "question": "What's our retainer rate for freelance editors?", "answer": null, "relevant_ids": [], "expect_abstain": true, "metadata": {"type": "abstention"}}
+  ]
+}

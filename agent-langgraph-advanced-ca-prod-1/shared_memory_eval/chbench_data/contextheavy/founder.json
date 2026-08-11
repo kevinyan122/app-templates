@@ -1,0 +1,21 @@
+{
+  "track": "founder",
+  "description": "A founder reasoning about product strategy, competitive positioning, and decisions over time. Tests causal recall of strategic decisions, competitive facts, cross-product positioning, and abstention on unrecorded facts.",
+  "memories": [
+    {"id": "fnd-001", "text": "The portfolio strategy is a chain: letX, then Quantum Sketch, then Context-Heavy, then common-knowledge. Each product feeds the next, and they interconnect rather than standing alone.", "metadata": {"timestamp": "2026-01-01", "type": "strategy"}},
+    {"id": "fnd-002", "text": "Context-Heavy is cloud-first and private. common-knowledge is local-first and open source. The two share data through the ck bridge but ship on opposite deployment models.", "metadata": {"timestamp": "2026-01-20", "type": "positioning"}},
+    {"id": "fnd-003", "text": "Decision: keep Context-Heavy undeployed until its retrieval engine beats competitor benchmarks. Shipping weak numbers would hurt positioning more than shipping late.", "metadata": {"timestamp": "2026-05-15", "type": "decision"}},
+    {"id": "fnd-004", "text": "The competitive bar from published numbers: Mem0 scores 94.4 on LongMemEval and 92.5 on LoCoMo; Supermemory 92.3 on LongMemEval-S; Zep 63.8 on a stricter harness.", "metadata": {"timestamp": "2026-05-20", "type": "competitive"}},
+    {"id": "fnd-005", "text": "The target audience for Context-Heavy is anyone — normal users, developers, founders, and working professionals — and any AI agent they use. It is not built for one person.", "metadata": {"timestamp": "2026-02-05", "type": "audience"}},
+    {"id": "fnd-006", "text": "GBrain is the primary benchmark competitor to beat. It claims a +31 precision-at-5 lift coming from its knowledge graph.", "metadata": {"timestamp": "2026-05-22", "type": "competitive"}},
+    {"id": "fnd-007", "text": "Efficiency is a first-class product metric: every benchmark score is weighted by token cost and latency, not accuracy alone. The thesis is the most efficient brain, not just the most accurate.", "metadata": {"timestamp": "2026-04-10", "type": "thesis"}}
+  ],
+  "questions": [
+    {"id": "fnd-q1", "question": "Why is Context-Heavy not deployed yet?", "answer": "Because the plan is to wait until its retrieval engine beats competitor benchmarks rather than ship weak numbers.", "relevant_ids": ["fnd-003"], "metadata": {"type": "causal"}},
+    {"id": "fnd-q2", "question": "Which competitor is the main benchmark target, and what does it claim?", "answer": "GBrain, which claims a +31 precision-at-5 lift from its knowledge graph.", "relevant_ids": ["fnd-006"], "metadata": {"type": "competitive"}},
+    {"id": "fnd-q3", "question": "How do Context-Heavy and common-knowledge differ in their deployment models?", "answer": "Context-Heavy is cloud-first and private; common-knowledge is local-first and open source.", "relevant_ids": ["fnd-002"], "metadata": {"type": "cross-product"}},
+    {"id": "fnd-q4", "question": "How much funding has the company raised so far?", "answer": null, "relevant_ids": [], "expect_abstain": true, "metadata": {"type": "abstention"}},
+    {"id": "fnd-q5", "question": "Who is the target audience for Context-Heavy?", "answer": "Anyone — normal users, developers, founders, professionals — and any AI agent they use.", "relevant_ids": ["fnd-005"], "metadata": {"type": "factual"}},
+    {"id": "fnd-q6", "question": "What is the core product thesis around efficiency?", "answer": "To be the most efficient brain, not just the most accurate — scores are weighted by token cost and latency.", "relevant_ids": ["fnd-007"], "metadata": {"type": "thesis"}}
+  ]
+}

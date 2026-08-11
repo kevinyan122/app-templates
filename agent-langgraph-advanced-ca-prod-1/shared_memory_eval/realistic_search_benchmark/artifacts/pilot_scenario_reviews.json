@@ -1,0 +1,1262 @@
+{
+  "schema_version": "realistic-search-scenario-reviews-v1",
+  "generated_at": "2026-08-03T20:25:43.312973+00:00",
+  "model_endpoint": "databricks-gpt-5-2",
+  "source_drafts": "/Users/kevin.yan/Repos/app-templates/agent-langgraph-advanced/shared_memory_eval/realistic_search_benchmark/artifacts/pilot_scenario_drafts.json",
+  "summary": {
+    "cases": 25,
+    "accepted_by_both": 8,
+    "disagreements": 2,
+    "rejected_by_both": 15,
+    "review_queue_case_ids": [
+      "people-sasha-comms-training-partner",
+      "people-jordan-package-backup",
+      "preference-calendar-source-of-truth",
+      "preference-morning-focus-time",
+      "preference-poppy-long-walk-morning",
+      "project-coverage-pilot-tracking",
+      "project-kb-refresh-ownership",
+      "project-kb-refresh-it-approver",
+      "project-sro-kickoff-location",
+      "project-coverage-pilot-primary-site",
+      "decision-kb-freeze-window",
+      "decision-sro-training-format-current",
+      "decision-coverage-escalation-owner",
+      "global-tools-standards",
+      "workflow-route-requests",
+      "workflow-comms-approval",
+      "household-trash-night"
+    ],
+    "critic_acceptance": {
+      "critic-evidence": 9,
+      "critic-realism": 9
+    }
+  },
+  "global_checks": {
+    "candidate_memory_occurrences": 93,
+    "unique_fact_sets": 50,
+    "duplicate_fact_set_groups": [
+      {
+        "fact_ids": [
+          "fact-decision-coverage-pilot-escalation-owner-it-services"
+        ],
+        "memory_ids": [
+          "mem-0002",
+          "mem-0051"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-global-fact-lanterndesk-ownership-it-services"
+        ],
+        "memory_ids": [
+          "mem-0003",
+          "mem-0056",
+          "mem-0067"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-preference-mara-remote-first-with-it"
+        ],
+        "memory_ids": [
+          "mem-0004",
+          "mem-0069"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-people-sasha-comms-partner"
+        ],
+        "memory_ids": [
+          "mem-0005",
+          "mem-0072"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-workflow-approval-gate-nina-for-networkwide-comms"
+        ],
+        "memory_ids": [
+          "mem-0006",
+          "mem-0070"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-project-summer-reading-ops-comms-training-partnership"
+        ],
+        "memory_ids": [
+          "mem-0007",
+          "mem-0037",
+          "mem-0049",
+          "mem-0087"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-household-logistics-package-backup-jordan"
+        ],
+        "memory_ids": [
+          "mem-0009",
+          "mem-0081"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-preference-mara-prefers-aurora-calendar-source"
+        ],
+        "memory_ids": [
+          "mem-0011",
+          "mem-0019"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-workflow-household-weekly-planning-calendar-sync"
+        ],
+        "memory_ids": [
+          "mem-0012",
+          "mem-0079"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-workflow-action-items-to-aurora-calendar"
+        ],
+        "memory_ids": [
+          "mem-0013",
+          "mem-0064"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-global-fact-brightgrove-core-systems"
+        ],
+        "memory_ids": [
+          "mem-0014",
+          "mem-0055"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-workflow-meeting-notes-default-pine-notes"
+        ],
+        "memory_ids": [
+          "mem-0016",
+          "mem-0063"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-preference-mara-meeting-recaps-in-pine-notes"
+        ],
+        "memory_ids": [
+          "mem-0017",
+          "mem-0065"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-preference-mara-focus-time-mornings"
+        ],
+        "memory_ids": [
+          "mem-0018",
+          "mem-0091"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-project-quarterly-status-tracked-in-aurora-calendar"
+        ],
+        "memory_ids": [
+          "mem-0020",
+          "mem-0032",
+          "mem-0038",
+          "mem-0093"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-preference-household-poppy-walks-morning-new"
+        ],
+        "memory_ids": [
+          "mem-0021",
+          "mem-0083"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-household-logistics-poppy-midday-walk-new"
+        ],
+        "memory_ids": [
+          "mem-0022",
+          "mem-0082"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-plan-household-vet-reminder-poppy"
+        ],
+        "memory_ids": [
+          "mem-0023",
+          "mem-0084"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-household-logistics-poppy-food-storage"
+        ],
+        "memory_ids": [
+          "mem-0024",
+          "mem-0085"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-project-coverage-pilot-tracking-in-lanterndesk"
+        ],
+        "memory_ids": [
+          "mem-0025",
+          "mem-0035",
+          "mem-0041",
+          "mem-0052",
+          "mem-0068"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-project-coverage-pilot-primary-site-riverbend"
+        ],
+        "memory_ids": [
+          "mem-0026",
+          "mem-0039"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-project-coverage-pilot-weekly-check-in-branch-leads-council"
+        ],
+        "memory_ids": [
+          "mem-0027",
+          "mem-0040",
+          "mem-0062"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-project-coverage-pilot-expansion-plan-to-hq"
+        ],
+        "memory_ids": [
+          "mem-0028",
+          "mem-0042"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-project-kb-refresh-ownership-ops-programs"
+        ],
+        "memory_ids": [
+          "mem-0029",
+          "mem-0034",
+          "mem-0045"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-project-kb-refresh-draft-structure-in-pine-notes"
+        ],
+        "memory_ids": [
+          "mem-0030",
+          "mem-0044",
+          "mem-0076"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-project-kb-refresh-it-review-gate"
+        ],
+        "memory_ids": [
+          "mem-0031",
+          "mem-0033"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-project-summer-reading-ops-kickoff-at-hq"
+        ],
+        "memory_ids": [
+          "mem-0036",
+          "mem-0050",
+          "mem-0088"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-decision-summer-reading-ops-training-format-hybrid"
+        ],
+        "memory_ids": [
+          "mem-0047",
+          "mem-0089"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-decision-coverage-pilot-feedback-channel-branch-leads-council"
+        ],
+        "memory_ids": [
+          "mem-0054",
+          "mem-0061"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-global-fact-hq-primary-in-person-site"
+        ],
+        "memory_ids": [
+          "mem-0058",
+          "mem-0092"
+        ]
+      },
+      {
+        "fact_ids": [
+          "fact-workflow-lanterndesk-ticketing-for-requests"
+        ],
+        "memory_ids": [
+          "mem-0066",
+          "mem-0077"
+        ]
+      }
+    ],
+    "duplicate_description_groups": [
+      {
+        "description": "due-date action items get converted into aurora calendar tasks/events",
+        "memory_ids": [
+          "mem-0013",
+          "mem-0064"
+        ]
+      },
+      {
+        "description": "kb refresh ownership and coordination",
+        "memory_ids": [
+          "mem-0029",
+          "mem-0045"
+        ]
+      },
+      {
+        "description": "quarterly status blocks scheduled for major projects",
+        "memory_ids": [
+          "mem-0032",
+          "mem-0038"
+        ]
+      },
+      {
+        "description": "coverage pilot tracking uses lanterndesk tickets",
+        "memory_ids": [
+          "mem-0041",
+          "mem-0052"
+        ]
+      }
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "people-owen-escalation-contact",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0001 directly states Owen Reed is the IT services lead and main point of contact for systems rollouts/support workflows, matching answer_should. Contexts discuss escalation/admin/prefs but don’t assert he’s the main rollout/support contact.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Query asks for the main IT contact for rollouts/support workflows at Brightgrove. mem-0001 explicitly says Owen Reed is IT services lead and main point of contact for systems rollouts and support workflows. Other memories mention Owen in narrower contexts (escalation contact) or team ownership, but not the general main contact for rollouts/support workflows.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "people-sasha-comms-training-partner",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0005 answers, but multiple other memories also explicitly state Sasha Kim partners closely with Mara in the Comms & Training Working Group (mem-0072) and/or for staff-facing updates/announcements via that group (mem-0007, mem-0037, mem-0049, mem-0087). So gold is not uniquely best.",
+          "issue_codes": [
+            "context-answers-query",
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0007",
+            "mem-0037",
+            "mem-0049",
+            "mem-0087",
+            "mem-0072"
+          ],
+          "suggested_repair": "Change gold_memory_id to mem-0072, or remove/replace alternative memories that restate the same partnership so only one memory in the pool contains it."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0005 and mem-0072 both directly identify Sasha Kim as Mara’s Comms & Training partner, fully answering who she usually partners with for staff-facing announcements. Gold is not uniquely required.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0072"
+          ],
+          "suggested_repair": "Remove or edit the duplicate memory (mem-0072) or allow either mem-0005 or mem-0072 as acceptable gold."
+        }
+      ]
+    },
+    {
+      "case_id": "people-jordan-package-backup",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": false,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Answer_should requires both naming Jordan Wu and the instruction to text Jordan to grab/hold the package. Gold mem-0008 only says Jordan is a go-to for favors like package pickup, not the texting/hold procedure. Context mem-0009 (and duplicate mem-0081) explicitly provides the full fallback instruction and answers the query better.",
+          "issue_codes": [
+            "gold-missing-requirement",
+            "context-answers-query",
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0009",
+            "mem-0081"
+          ],
+          "suggested_repair": "Set gold_memory_id to mem-0009 (or mem-0081), or edit mem-0008 to include the texting/hold procedure."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": false,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "answer_should requires both naming Jordan Wu and the instruction to text Jordan to grab/hold the package. mem-0008 only says Jordan is a go-to for small favors like package pickup, not the specific process. mem-0009 and mem-0081 directly state the text/grab/hold workflow and thus substantially answer the query.",
+          "issue_codes": [
+            "gold-missing-requirement",
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0009",
+            "mem-0081"
+          ],
+          "suggested_repair": "Change gold_memory_id to mem-0009 (or mem-0081) and update why_gold/answer_should accordingly."
+        }
+      ]
+    },
+    {
+      "case_id": "preference-calendar-source-of-truth",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0011 contains the source-of-truth preference, but mem-0019 is a duplicate stating the same preference, so gold is not uniquely best.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0019"
+          ],
+          "suggested_repair": "Remove the duplicate (mem-0019) from the candidate pool or mark it as the gold as well (or ensure only one memory contains this exact preference)."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0011 and mem-0019 both state Aurora Calendar is the source of truth for work and personal scheduling, fully answering the question. Gold is not unique.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0019"
+          ],
+          "suggested_repair": "Remove duplicate mem-0019 or allow either memory as the gold."
+        }
+      ]
+    },
+    {
+      "case_id": "preference-concise-up-front-updates",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0015 directly states Mara prefers concise updates first with summary + next steps and details on request; contexts are about note-taking/recaps and don’t encode this update-structure preference.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0015 directly states Mara prefers concise updates first (short summary + next steps) with details on request. Context memories concern meeting notes/recaps and don’t specify update structure preference.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "preference-morning-focus-time",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0018 states the morning focus-time preference, but mem-0091 is a duplicate with the same content, so gold is not uniquely best.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0091"
+          ],
+          "suggested_repair": "Remove/merge the duplicate memory (mem-0091) or choose it as gold and eliminate the other duplicate."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0018 and mem-0091 both state Mara prefers protecting morning focus time and scheduling meetings later when possible. Either answers the query, so gold isn’t unique.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0091"
+          ],
+          "suggested_repair": "Remove duplicate mem-0091 or allow either memory as gold."
+        }
+      ]
+    },
+    {
+      "case_id": "preference-poppy-long-walk-morning",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0021 states since 2026-04-15 the long walk is preferred in the morning; mem-0083 repeats the same current routine, so gold is not uniquely best.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0083"
+          ],
+          "suggested_repair": "Remove the duplicate (mem-0083) or ensure only one memory in the pool states this preference."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0021 and mem-0083 both state that since mid-April 2026 the household prefers Poppy’s longer walk in the morning. Either substantially answers the question; gold not unique.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0083"
+          ],
+          "suggested_repair": "Remove duplicate mem-0083 or allow either memory as gold."
+        }
+      ]
+    },
+    {
+      "case_id": "project-coverage-pilot-tracking",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0025 states pilot requests/issues are tracked as LanternDesk tickets, but multiple other memories in the pool state the same tracking rule (mem-0035, mem-0041, mem-0052, mem-0068). Thus gold is not uniquely best.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0035",
+            "mem-0041",
+            "mem-0052",
+            "mem-0068",
+            "mem-0041",
+            "mem-0052",
+            "mem-0068"
+          ],
+          "suggested_repair": "Deduplicate the repeated tracking memories so only one remains, or accept any of the duplicates as gold and remove the rest."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Multiple memories besides mem-0025 state the same rule that Shift Coverage Pilot requests/issues are tracked as LanternDesk tickets (mem-0035, mem-0041, mem-0052, mem-0068). Gold is not uniquely necessary.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0035",
+            "mem-0041",
+            "mem-0052",
+            "mem-0068"
+          ],
+          "suggested_repair": "Deduplicate repeated tracking memories or allow multiple gold memory ids for this case."
+        }
+      ]
+    },
+    {
+      "case_id": "project-kb-refresh-ownership",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0029 answers ownership, but mem-0034 and mem-0045 repeat the same statement that Ops Programs owns the KB Refresh with Mara coordinating, so gold is not uniquely best.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0034",
+            "mem-0045"
+          ],
+          "suggested_repair": "Remove/merge duplicate ownership memories (mem-0034, mem-0045) so the gold is unique."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Ownership is stated in mem-0029, but mem-0034 and mem-0045 repeat the same ownership/coordinator info. Any of these answers “Who owns the project?”, so gold not unique.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0034",
+            "mem-0045"
+          ],
+          "suggested_repair": "Remove duplicates (mem-0034, mem-0045) or accept any of the equivalent memories as gold."
+        }
+      ]
+    },
+    {
+      "case_id": "project-kb-refresh-it-approver",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0033 states IT Services review is required and Owen Reed is approver; mem-0031 contains the same gate/approver info, making gold non-unique.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0031"
+          ],
+          "suggested_repair": "Remove one of mem-0031/mem-0033 or consolidate them so only one memory contains the approver fact."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0033 and mem-0031 both state IT Services review is required for KB Refresh changes touching LanternDesk procedures and that Owen Reed is the approver. Gold not unique.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0031"
+          ],
+          "suggested_repair": "Remove duplicate mem-0031 or allow either memory as gold."
+        }
+      ]
+    },
+    {
+      "case_id": "project-sro-kickoff-location",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0036 states kickoff was an in-person working session at Brightgrove HQ; mem-0050 and mem-0088 repeat the same kickoff detail, so gold is not uniquely best.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0050",
+            "mem-0088"
+          ],
+          "suggested_repair": "Remove/merge duplicate kickoff memories (mem-0050, mem-0088) or pick one canonical kickoff memory as the only source."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Kickoff location (in-person working session at Brightgrove HQ) appears in mem-0036 and also in mem-0050 and mem-0088. Gold not unique.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0050",
+            "mem-0088"
+          ],
+          "suggested_repair": "Remove duplicates (mem-0050, mem-0088) or allow any of these memories as gold."
+        }
+      ]
+    },
+    {
+      "case_id": "project-coverage-pilot-primary-site",
+      "status": "disagreement",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0039 provides both required parts: Riverbend Branch Library as primary site and Eli Mercado as frontline feedback contact. Contexts cover weekly check-in, tracking, and expansion plan but not both site+contact together.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0039 and mem-0026 both provide the two required parts: Riverbend Branch Library as primary pilot site and Eli Mercado as frontline feedback contact. Gold not unique.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0026"
+          ],
+          "suggested_repair": "Remove duplicate mem-0026 or allow either memory as gold."
+        }
+      ]
+    },
+    {
+      "case_id": "decision-kb-freeze-window",
+      "status": "disagreement",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": false,
+          "category_fit": true,
+          "notes": "Gold mem-0043 contains the approved freeze 2026-04-20 to 2026-04-30. However mem-0046 describes a different ‘documentation freeze window’ (2026-04-06 to 2026-04-10) that could plausibly be what ‘we agreed on’ refers to, making the query ambiguous between an approved decision vs a calendar-blocked window.",
+          "issue_codes": [
+            "temporal-ambiguity"
+          ],
+          "alternative_memory_ids": [
+            "mem-0046"
+          ],
+          "suggested_repair": "Clarify the query to ‘the Nina-approved KB Refresh documentation freeze’ or ‘the officially approved freeze window in late April’ to disambiguate from the earlier calendar block."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0043 gives the agreed/approved freeze window dates (2026-04-20 through 2026-04-30). mem-0046 mentions a different earlier blocked window (2026-04-06 to 2026-04-10) and is a plan rather than the approved freeze, so it’s not a substantial alternative.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "decision-sro-training-format-current",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0047 states the final hybrid training plan; mem-0089 also states the (current) hybrid plan (with start date 2026-05-02), so gold is not uniquely best.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0089"
+          ],
+          "suggested_repair": "Remove/merge mem-0089 or mem-0047 so only one memory encodes the final training-format decision."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Current final decision (hybrid: short in-person HQ session + recorded follow-up via Comms & Training WG) is in mem-0047 and duplicated in mem-0089. mem-0048 is explicitly superseded. Gold not unique due to mem-0089.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0089"
+          ],
+          "suggested_repair": "Remove duplicate mem-0089 or allow either memory as gold."
+        }
+      ]
+    },
+    {
+      "case_id": "decision-coverage-escalation-owner",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0051 states escalation for system/access problems goes to IT Services with Owen Reed as contact; mem-0002 repeats the same decision, so gold is not uniquely best.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0002"
+          ],
+          "suggested_repair": "Remove one of mem-0002/mem-0051 or consolidate duplicates."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Escalation assignment for system/access issues to IT Services with Owen Reed as escalation contact is stated in mem-0051 and also mem-0002. Gold not unique.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0002"
+          ],
+          "suggested_repair": "Remove duplicate mem-0002 or allow either memory as gold."
+        }
+      ]
+    },
+    {
+      "case_id": "global-tools-standards",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0055 states Aurora Calendar is standard for scheduling and LanternDesk standard for ops/IT requests; mem-0014 states the same pairing, so gold is not uniquely best.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0014"
+          ],
+          "suggested_repair": "Deduplicate mem-0014 and mem-0055 so only one memory contains the network standard-tools pairing."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "The paired network standards (Aurora Calendar for scheduling; LanternDesk for ops/IT request tracking) appear in mem-0055 and also mem-0014. Gold not unique.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0014"
+          ],
+          "suggested_repair": "Remove duplicate mem-0014 or allow either memory as gold."
+        }
+      ]
+    },
+    {
+      "case_id": "global-branch-leads-channel",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0059 explicitly defines Branch Leads Council as the standing channel for frontline feedback on network-wide operational changes. Contexts are project-specific (Shift Coverage Pilot feedback channel) or about Eli’s role, not the global standing-channel definition.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0059 directly defines Branch Leads Council as the standing channel for frontline feedback on network-wide operational changes. Context memories (mem-0061) describe an official channel but specifically for the Shift Coverage Pilot, not the global standing purpose asked here.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "workflow-notes-next-steps",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0063 states Mara captures notes in Pine Notes and ends with an action-items list labeled ‘Next steps,’ directly answering the label question; contexts don’t provide the label.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0063 states Mara captures meeting notes in Pine Notes and ends with an action-items list labeled “Next steps,” directly answering the label question. Context memories don’t include the label.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "workflow-route-requests",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0066 states Mara routes ops/IT requests through LanternDesk rather than email with rationale; mem-0077 repeats the same workflow, so gold is not uniquely best.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0077"
+          ],
+          "suggested_repair": "Remove/merge mem-0077 and mem-0066 to eliminate duplication."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0066 and mem-0077 duplicate the same workflow: route operational/IT requests through LanternDesk rather than email, with rationale. Gold not unique.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0077"
+          ],
+          "suggested_repair": "Remove duplicate mem-0077 or allow either memory as gold."
+        }
+      ]
+    },
+    {
+      "case_id": "workflow-comms-approval",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Gold mem-0070 states Nina Patel sign-off is required before Sasha sends network-wide comms; mem-0006 states the same approval gate, so gold is not uniquely best.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0006"
+          ],
+          "suggested_repair": "Remove one of mem-0006/mem-0070 or consolidate duplicates."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": false,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "Approval gate (get Nina Patel’s sign-off before Sasha sends network-wide comms) is in mem-0070 and duplicated in mem-0006. Gold not unique.",
+          "issue_codes": [
+            "global-alternative-answer"
+          ],
+          "alternative_memory_ids": [
+            "mem-0006"
+          ],
+          "suggested_repair": "Remove duplicate mem-0006 or allow either memory as gold."
+        }
+      ]
+    },
+    {
+      "case_id": "workflow-kb-intake-current",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0074 uniquely provides the current (starting 2026-05-01) KB Refresh intake via shared Pine Notes checklist and the exception that only escalations/access problems get LanternDesk tickets; context includes the old ticket-based intake (mem-0075) and other adjacent info but not the current rule.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0074 clearly states the current intake starting 2026-05-01: shared Pine Notes checklist; only escalations/access problems get LanternDesk tickets. mem-0075 is explicitly the older (ended 2026-04-30) ticket-based process and does not answer “now.”",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "household-trash-night",
+      "status": "rejected",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": false,
+          "category_fit": true,
+          "notes": "Gold mem-0078 answers Tuesday night and ‘whoever is home last’ rule. But the query asks ‘Is tonight our trash/recycling night’ without specifying what day ‘tonight’ is; it depends on the current date/time outside memory, so the intended answer isn’t fully determined from memory alone (though the rule is).",
+          "issue_codes": [
+            "query-ambiguous"
+          ],
+          "alternative_memory_ids": [],
+          "suggested_repair": "Rewrite query to remove ‘tonight’ (e.g., ‘What night do we put out trash/recycling, and what’s the default rule for who takes the bins out?’) or include the day-of-week in the query."
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": false,
+          "category_fit": true,
+          "notes": "mem-0078 answers the standing rule (Tuesday nights; last one home takes bins out), but the query asks “Is tonight our trash/recycling night” without specifying what day/date “tonight” is in the benchmark. Second clause is answerable; first clause depends on unstated current date.",
+          "issue_codes": [
+            "query-ambiguous",
+            "temporal-ambiguity"
+          ],
+          "alternative_memory_ids": [],
+          "suggested_repair": "Specify the day/date in the query or situation (e.g., “It’s Tuesday night—… is tonight trash night?”) or remove the “Is tonight…” part."
+        }
+      ]
+    },
+    {
+      "case_id": "household-poppy-midday-walk",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0082 states from June 2026 onward Mara usually handles the weekday midday walk and blocks 20 minutes; contexts are about long-walk preference, vet reminder, and kibble storage, not midday-walk ownership/duration.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0082 provides both requested details: from June 2026 onward Mara usually handles weekday midday walk and blocks 20 minutes. No other memory includes both owner and duration together.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "plan-sro-staffing-guidance-deadline",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0086 provides the target date (2026-05-08) and what it’s for (staffing guidance draft ready for Comms & Training WG review). Contexts cover partnership, kickoff, and training format but not this deadline.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0086 gives the target date (2026-05-08) and what it’s for (SRO 2026 staffing guidance draft ready for Comms & Training WG review). Context memories don’t contain the deadline.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    },
+    {
+      "case_id": "plan-ops-team-day",
+      "status": "accepted",
+      "reviews": [
+        {
+          "reviewer": "critic-evidence",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0090 explicitly states the Ops Programs Team in-person team day at HQ is on 2026-06-11; contexts are general preferences/HQ fact/quarterly check-ins and don’t give the date.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        },
+        {
+          "reviewer": "critic-realism",
+          "realistic": true,
+          "answerable": true,
+          "gold_correct": true,
+          "unambiguous": true,
+          "category_fit": true,
+          "notes": "mem-0090 states Ops Programs in-person team day at Brightgrove HQ is on 2026-06-11. No other memory provides this date.",
+          "issue_codes": [],
+          "alternative_memory_ids": [],
+          "suggested_repair": ""
+        }
+      ]
+    }
+  ]
+}

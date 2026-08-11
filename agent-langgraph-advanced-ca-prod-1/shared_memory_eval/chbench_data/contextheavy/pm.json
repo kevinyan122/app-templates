@@ -1,0 +1,26 @@
+{
+  "track": "pm",
+  "description": "A product manager accumulating decisions, metrics, and roadmap context. Hard questions: paraphrase, multi-hop across decisions, temporal supersession, and abstention on un-decided items.",
+  "memories": [
+    {"id": "pm-001", "text": "We define an active user as someone who completes at least one core action in a rolling 7-day window, not just a login.", "metadata": {"timestamp": "2026-01-05", "type": "definition"}},
+    {"id": "pm-002", "text": "Decision: we cut the onboarding from five steps to three after funnel data showed 60% drop-off on step four.", "metadata": {"timestamp": "2026-01-20", "type": "decision"}},
+    {"id": "pm-003", "text": "The Q2 north-star metric is weekly active teams, replacing the Q1 north-star of total signups.", "metadata": {"timestamp": "2026-04-01", "type": "update", "supersedes": "pm-004"}},
+    {"id": "pm-004", "text": "The Q1 north-star metric was total signups.", "metadata": {"timestamp": "2026-01-01", "type": "superseded", "valid_until": "2026-04-01"}},
+    {"id": "pm-005", "text": "Enterprise deals require SOC 2 Type II; we scoped the audit for Q3 because two pipeline deals are blocked on it.", "metadata": {"timestamp": "2026-02-15", "type": "decision"}},
+    {"id": "pm-006", "text": "Feature flags default off in production and are rolled out by cohort, starting with internal users, then 5% of traffic.", "metadata": {"timestamp": "2026-02-25", "type": "process"}},
+    {"id": "pm-007", "text": "We pushed the mobile app to next year to focus all engineering on the API platform, which three partner products depend on.", "metadata": {"timestamp": "2026-03-10", "type": "decision"}},
+    {"id": "pm-008", "text": "Support SLA: first response within 4 business hours for paid plans, 24 hours for free.", "metadata": {"timestamp": "2026-03-18", "type": "policy"}},
+    {"id": "pm-009", "text": "Churn is reviewed monthly; the trigger for an intervention is logo churn above 3% in any month.", "metadata": {"timestamp": "2026-04-05", "type": "policy"}},
+    {"id": "pm-010", "text": "Pricing experiments run for a full billing cycle before we read results, to avoid mid-cycle bias.", "metadata": {"timestamp": "2026-04-20", "type": "policy"}}
+  ],
+  "questions": [
+    {"id": "pm-q1", "question": "If someone just signs in but does nothing, do they count toward our engagement number?", "answer": "No — an active user must complete at least one core action in a rolling 7-day window, not just log in.", "relevant_ids": ["pm-001"], "metadata": {"type": "paraphrase"}},
+    {"id": "pm-q2", "question": "What are we measuring success by right now, and what were we measuring before?", "answer": "Now: weekly active teams (Q2 north-star); before: total signups (Q1 north-star, superseded).", "relevant_ids": ["pm-003", "pm-004"], "metadata": {"type": "temporal-contradiction"}},
+    {"id": "pm-q3", "question": "Why did we shorten the signup flow?", "answer": "Funnel data showed 60% drop-off on step four, so onboarding was cut from five steps to three.", "relevant_ids": ["pm-002"], "metadata": {"type": "causal"}},
+    {"id": "pm-q4", "question": "Why is the native app delayed, and what got the engineering time instead?", "answer": "The mobile app was pushed to next year to focus engineering on the API platform, which three partner products depend on.", "relevant_ids": ["pm-007"], "metadata": {"type": "causal-multi-part"}},
+    {"id": "pm-q5", "question": "A free-tier customer opened a ticket — how fast do we owe them a first reply?", "answer": "Within 24 hours (paid plans get 4 business hours).", "relevant_ids": ["pm-008"], "metadata": {"type": "conditional-paraphrase"}},
+    {"id": "pm-q6", "question": "What compliance certification is blocking enterprise deals and when is it scheduled?", "answer": "SOC 2 Type II, with the audit scoped for Q3 (two pipeline deals are blocked on it).", "relevant_ids": ["pm-005"], "metadata": {"type": "multi-part"}},
+    {"id": "pm-q7", "question": "At what churn level do we step in?", "answer": "When logo churn exceeds 3% in any month (reviewed monthly).", "relevant_ids": ["pm-009"], "metadata": {"type": "paraphrase"}},
+    {"id": "pm-q8", "question": "What's the headcount plan for the design team next quarter?", "answer": null, "relevant_ids": [], "expect_abstain": true, "metadata": {"type": "abstention"}}
+  ]
+}

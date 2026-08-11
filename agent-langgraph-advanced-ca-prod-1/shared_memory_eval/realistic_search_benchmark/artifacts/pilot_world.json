@@ -1,0 +1,1437 @@
+{
+  "schema_version": "realistic-search-world-v1",
+  "generated_at": "2026-07-31T21:48:25.151018+00:00",
+  "model_endpoint": "databricks-gpt-5-2",
+  "world": {
+    "world_id": "realistic-search-pilot",
+    "title": "Mara Lin’s 2026 Work-and-Home Assistant World",
+    "premise": "In 2026, Mara Lin is a mid-career operations program manager at Brightgrove Public Library Network (a regional nonprofit coordinating shared services for several local libraries). She relies on an assistant to juggle cross-team projects (vendor rollout, scheduling, internal comms), recurring meetings, and day-to-day logistics. At home, she shares a small rental townhouse with her partner and a dog, and the assistant helps coordinate chores, errands, meal planning, and family commitments. The same people and places recur across her work and personal life: colleagues in a few standing teams, a consistent set of neighborhood places, and stable tools used for planning, communication, and documentation. The benchmark world centers on ordinary, overlapping contexts—work projects with timelines and stakeholders, household routines, and practical preferences—without sensitive accounts or extraordinary events.",
+    "owner_entity_id": "person-mara-lin",
+    "entities": [
+      {
+        "entity_id": "person-mara-lin",
+        "kind": "person",
+        "name": "Mara Lin",
+        "aliases": [
+          "Mara"
+        ],
+        "summary": "Working adult and benchmark owner; operations program manager at Brightgrove Public Library Network. Uses an assistant for scheduling, project coordination, and home logistics in 2026."
+      },
+      {
+        "entity_id": "person-devon-hart",
+        "kind": "person",
+        "name": "Devon Hart",
+        "aliases": [
+          "Dev"
+        ],
+        "summary": "Mara’s partner; works regular weekday hours and shares household planning, errands, and pet care with Mara."
+      },
+      {
+        "entity_id": "person-nina-patel",
+        "kind": "person",
+        "name": "Nina Patel",
+        "aliases": [
+          "Nina"
+        ],
+        "summary": "Mara’s manager at Brightgrove; sets priorities and approves major process changes and communications."
+      },
+      {
+        "entity_id": "person-owen-reed",
+        "kind": "person",
+        "name": "Owen Reed",
+        "aliases": [
+          "Owen"
+        ],
+        "summary": "IT services lead at Brightgrove; key stakeholder for software rollouts, device setup, and support workflows."
+      },
+      {
+        "entity_id": "person-sasha-kim",
+        "kind": "person",
+        "name": "Sasha Kim",
+        "aliases": [
+          "Sasha"
+        ],
+        "summary": "Communications specialist at Brightgrove; partners with Mara on staff updates, training announcements, and internal newsletters."
+      },
+      {
+        "entity_id": "person-eli-mercado",
+        "kind": "person",
+        "name": "Eli Mercado",
+        "aliases": [
+          "Eli"
+        ],
+        "summary": "Branch supervisor at a member library; represents frontline staff needs in scheduling and service changes."
+      },
+      {
+        "entity_id": "person-jordan-wu",
+        "kind": "person",
+        "name": "Jordan Wu",
+        "aliases": [
+          "Jordan"
+        ],
+        "summary": "Mara’s neighbor and occasional running buddy; a recurring personal contact for local plans and favors like package pickup."
+      },
+      {
+        "entity_id": "pet-poppy",
+        "kind": "pet",
+        "name": "Poppy",
+        "aliases": [
+          "Pop"
+        ],
+        "summary": "Mara and Devon’s medium-sized rescue dog; drives recurring routines like walks, vet reminders, and pet-sitting coordination."
+      },
+      {
+        "entity_id": "organization-brightgrove-pln",
+        "kind": "organization",
+        "name": "Brightgrove Public Library Network",
+        "aliases": [
+          "Brightgrove PLN",
+          "Brightgrove Network"
+        ],
+        "summary": "Regional nonprofit coordinating shared services for member libraries (IT support, training, shared catalog standards, and operations). Mara works here."
+      },
+      {
+        "entity_id": "team-ops-programs",
+        "kind": "team",
+        "name": "Operations Programs Team",
+        "aliases": [
+          "Ops Programs"
+        ],
+        "summary": "Mara’s core team at Brightgrove focused on process improvement, training coordination, and cross-branch operational consistency."
+      },
+      {
+        "entity_id": "team-it-services",
+        "kind": "team",
+        "name": "IT Services Team",
+        "aliases": [
+          "IT Services"
+        ],
+        "summary": "Brightgrove’s internal IT group responsible for systems, device management, and helpdesk operations; Owen leads key efforts."
+      },
+      {
+        "entity_id": "team-branch-leads-council",
+        "kind": "team",
+        "name": "Branch Leads Council",
+        "aliases": [
+          "Branch Leads"
+        ],
+        "summary": "Standing group of branch supervisors and managers who provide feedback on network-wide changes; Eli is a regular representative."
+      },
+      {
+        "entity_id": "team-comms-training",
+        "kind": "team",
+        "name": "Comms & Training Working Group",
+        "aliases": [
+          "Comms/Training WG"
+        ],
+        "summary": "Cross-functional working group coordinating staff communications and training rollouts; Sasha and Mara collaborate closely here."
+      },
+      {
+        "entity_id": "project-shift-coverage-pilot",
+        "kind": "project",
+        "name": "Shift Coverage Pilot",
+        "aliases": [
+          "Coverage Pilot"
+        ],
+        "summary": "Work project to standardize last-minute shift coverage requests and approvals across member libraries, with clear escalation paths and templates."
+      },
+      {
+        "entity_id": "project-knowledge-base-refresh",
+        "kind": "project",
+        "name": "Knowledge Base Refresh",
+        "aliases": [
+          "KB Refresh"
+        ],
+        "summary": "Work project to reorganize internal documentation, retire outdated pages, and create a consistent structure for procedures and FAQs."
+      },
+      {
+        "entity_id": "project-summer-reading-ops",
+        "kind": "project",
+        "name": "Summer Reading Ops 2026",
+        "aliases": [
+          "SRO 2026"
+        ],
+        "summary": "Seasonal operations planning effort for the network’s summer reading program: staffing guidance, supply timelines, and internal coordination."
+      },
+      {
+        "entity_id": "product-lanterndesk",
+        "kind": "product",
+        "name": "LanternDesk",
+        "aliases": [
+          "Lantern Desk"
+        ],
+        "summary": "Fictional helpdesk/ticketing product used by Brightgrove IT and operations teams for requests, tracking, and reporting."
+      },
+      {
+        "entity_id": "place-brightgrove-hq",
+        "kind": "place",
+        "name": "Brightgrove HQ",
+        "aliases": [
+          "HQ"
+        ],
+        "summary": "Main office where Mara has in-person meetings, training sessions, and periodic team days."
+      },
+      {
+        "entity_id": "place-riverbend-branch",
+        "kind": "place",
+        "name": "Riverbend Branch Library",
+        "aliases": [
+          "Riverbend Branch"
+        ],
+        "summary": "A member library location that frequently pilots operational changes; Eli works here and hosts occasional on-site sessions."
+      },
+      {
+        "entity_id": "place-maple-street-townhouse",
+        "kind": "place",
+        "name": "Maple Street Townhouse",
+        "aliases": [
+          "Home",
+          "Townhouse"
+        ],
+        "summary": "Mara and Devon’s rental home; center of household routines, deliveries, and pet care logistics."
+      },
+      {
+        "entity_id": "place-hawthorn-coffee",
+        "kind": "place",
+        "name": "Hawthorn Coffee",
+        "aliases": [
+          "Hawthorn"
+        ],
+        "summary": "Neighborhood coffee shop where Mara occasionally works for a change of scene and meets Jordan or Devon on weekends."
+      },
+      {
+        "entity_id": "household-maple-street",
+        "kind": "household",
+        "name": "Lin–Hart Household",
+        "aliases": [
+          "Maple Street Household"
+        ],
+        "summary": "Shared household unit for Mara and Devon (and Poppy) with recurring chores, errands, and shared calendar coordination."
+      },
+      {
+        "entity_id": "tool-aurora-calendar",
+        "kind": "tool",
+        "name": "Aurora Calendar",
+        "aliases": [
+          "Calendar"
+        ],
+        "summary": "Primary scheduling tool used for work meetings, personal appointments, reminders, and shared household events."
+      },
+      {
+        "entity_id": "tool-pine-notes",
+        "kind": "tool",
+        "name": "Pine Notes",
+        "aliases": [
+          "Notes"
+        ],
+        "summary": "Note-taking and lightweight documentation tool used by Mara for meeting notes, checklists, and drafts."
+      }
+    ],
+    "category_briefs": [
+      {
+        "category": "preference",
+        "brief": "Covers Mara’s everyday preferences that shape assistant behavior: meeting and focus-time habits, communication style (concise summaries vs. detailed), food and grocery tendencies for home planning, preferred places to work, and pet-care routine preferences (walk timing, backup options). Also includes light accessibility needs like favoring written recaps after fast meetings. Relevant entities include Mara, Devon, Poppy, the household, and frequently used places/tools.",
+        "focus_entity_ids": [
+          "person-mara-lin",
+          "person-devon-hart",
+          "pet-poppy",
+          "household-maple-street",
+          "place-maple-street-townhouse",
+          "place-hawthorn-coffee",
+          "tool-aurora-calendar",
+          "tool-pine-notes"
+        ]
+      },
+      {
+        "category": "project",
+        "brief": "Covers work initiatives and deliverables Mara tracks in 2026: objectives, scope, milestones, owners, dependencies, training materials, and pilot feedback loops. Includes how projects relate to teams and locations (HQ vs. branch sites) and which product(s) they touch. Facts can include timelines, meeting cadences, task lists, and stakeholder responsibilities.",
+        "focus_entity_ids": [
+          "person-mara-lin",
+          "organization-brightgrove-pln",
+          "team-ops-programs",
+          "team-it-services",
+          "team-branch-leads-council",
+          "team-comms-training",
+          "project-shift-coverage-pilot",
+          "project-knowledge-base-refresh",
+          "project-summer-reading-ops",
+          "product-lanterndesk",
+          "place-brightgrove-hq",
+          "place-riverbend-branch",
+          "tool-aurora-calendar",
+          "tool-pine-notes"
+        ]
+      },
+      {
+        "category": "workflow",
+        "brief": "Covers Mara’s repeatable ways of working: how she runs meetings, captures action items, prepares agendas, routes approvals, tracks tickets in LanternDesk, and publishes updates via the Comms & Training Working Group. Also includes household workflows like weekly planning, shared calendar updates, and recurring errands. Facts can describe templates, checklists, and handoff patterns between people and teams.",
+        "focus_entity_ids": [
+          "person-mara-lin",
+          "person-nina-patel",
+          "person-owen-reed",
+          "person-sasha-kim",
+          "person-eli-mercado",
+          "organization-brightgrove-pln",
+          "team-ops-programs",
+          "team-it-services",
+          "team-comms-training",
+          "product-lanterndesk",
+          "tool-aurora-calendar",
+          "tool-pine-notes",
+          "household-maple-street"
+        ]
+      },
+      {
+        "category": "decision",
+        "brief": "Covers recurring decisions Mara makes or supports: prioritizing requests, choosing pilot sites, setting communication timing, agreeing on process changes, and selecting where to hold sessions (HQ vs. branch vs. remote). Also includes small household decisions like splitting chores, coordinating pet-sitting, and choosing neighborhood meetup spots. Facts can include who must be consulted, what criteria are used, and what was decided and why.",
+        "focus_entity_ids": [
+          "person-mara-lin",
+          "person-devon-hart",
+          "person-nina-patel",
+          "person-owen-reed",
+          "person-sasha-kim",
+          "person-eli-mercado",
+          "organization-brightgrove-pln",
+          "team-branch-leads-council",
+          "project-shift-coverage-pilot",
+          "project-knowledge-base-refresh",
+          "place-brightgrove-hq",
+          "place-riverbend-branch",
+          "place-hawthorn-coffee",
+          "household-maple-street"
+        ]
+      },
+      {
+        "category": "people",
+        "brief": "Covers the stable cast around Mara: roles, working relationships, communication preferences, typical availability, and how they intersect across projects and routines. Includes both work colleagues and recurring personal contacts. Facts can include who owns what, who to loop in, and interpersonal context like collaboration patterns and meeting roles.",
+        "focus_entity_ids": [
+          "person-mara-lin",
+          "person-devon-hart",
+          "person-nina-patel",
+          "person-owen-reed",
+          "person-sasha-kim",
+          "person-eli-mercado",
+          "person-jordan-wu",
+          "organization-brightgrove-pln",
+          "team-ops-programs",
+          "team-it-services",
+          "team-branch-leads-council",
+          "team-comms-training",
+          "household-maple-street"
+        ]
+      },
+      {
+        "category": "plan",
+        "brief": "Covers forward-looking scheduling and planning in 2026: quarterly goals, upcoming deadlines, planned travel between sites, seasonal workload (e.g., summer reading operations), and household plans like weekend commitments and recurring appointments. Facts can include tentative holds, planning horizons, and constraints that affect scheduling.",
+        "focus_entity_ids": [
+          "person-mara-lin",
+          "person-devon-hart",
+          "person-nina-patel",
+          "organization-brightgrove-pln",
+          "project-summer-reading-ops",
+          "project-shift-coverage-pilot",
+          "project-knowledge-base-refresh",
+          "place-brightgrove-hq",
+          "place-riverbend-branch",
+          "place-maple-street-townhouse",
+          "tool-aurora-calendar",
+          "household-maple-street",
+          "pet-poppy"
+        ]
+      },
+      {
+        "category": "household_logistics",
+        "brief": "Covers day-to-day home coordination: chores, shopping lists, meal planning, deliveries, home maintenance coordination with the rental, pet routines (walks, supplies, sitter coordination), and neighbor-to-neighbor logistics like package pickup. Facts can include who usually handles what, where items are stored, and recurring timing patterns.",
+        "focus_entity_ids": [
+          "household-maple-street",
+          "person-mara-lin",
+          "person-devon-hart",
+          "pet-poppy",
+          "person-jordan-wu",
+          "place-maple-street-townhouse",
+          "place-hawthorn-coffee",
+          "tool-aurora-calendar",
+          "tool-pine-notes"
+        ]
+      },
+      {
+        "category": "global_fact",
+        "brief": "Covers stable background context that anchors the world: Mara’s job and organization structure, the core tools used for work and home, the main locations that recur, and the fact that the timeline is set in 2026 with ordinary seasonal rhythms. Facts here can include high-level descriptions of how the organization operates, how teams relate, and what systems are used network-wide.",
+        "focus_entity_ids": [
+          "person-mara-lin",
+          "organization-brightgrove-pln",
+          "team-ops-programs",
+          "team-it-services",
+          "team-branch-leads-council",
+          "team-comms-training",
+          "product-lanterndesk",
+          "tool-aurora-calendar",
+          "tool-pine-notes",
+          "place-brightgrove-hq",
+          "place-riverbend-branch",
+          "place-maple-street-townhouse",
+          "household-maple-street"
+        ]
+      }
+    ],
+    "facts": [
+      {
+        "fact_id": "fact-people-mara-role-ops-programs",
+        "category": "people",
+        "statement": "Mara Lin is an operations program manager on the Operations Programs Team at Brightgrove Public Library Network.",
+        "entity_ids": [
+          "person-mara-lin",
+          "team-ops-programs",
+          "organization-brightgrove-pln"
+        ],
+        "aliases": [
+          "Mara Lin (Ops Programs PM)"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-people-nina-is-maras-manager",
+        "category": "people",
+        "statement": "Nina Patel is Mara Lin’s manager at Brightgrove Public Library Network.",
+        "entity_ids": [
+          "person-nina-patel",
+          "person-mara-lin",
+          "organization-brightgrove-pln"
+        ],
+        "aliases": [
+          "Mara reports to Nina Patel"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-people-owen-it-services-lead",
+        "category": "people",
+        "statement": "Owen Reed is the IT services lead at Brightgrove and is the main point of contact for systems rollouts and support workflows.",
+        "entity_ids": [
+          "person-owen-reed",
+          "team-it-services",
+          "organization-brightgrove-pln"
+        ],
+        "aliases": [
+          "Owen (IT lead)"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-people-sasha-comms-partner",
+        "category": "people",
+        "statement": "Sasha Kim is a communications specialist at Brightgrove and partners closely with Mara Lin in the Comms & Training Working Group.",
+        "entity_ids": [
+          "person-sasha-kim",
+          "person-mara-lin",
+          "team-comms-training",
+          "organization-brightgrove-pln"
+        ],
+        "aliases": [
+          "Sasha (Comms & Training)"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-people-eli-branch-leads-rep",
+        "category": "people",
+        "statement": "Eli Mercado is a branch supervisor and a regular representative in the Branch Leads Council for frontline feedback.",
+        "entity_ids": [
+          "person-eli-mercado",
+          "team-branch-leads-council"
+        ],
+        "aliases": [
+          "Eli (Branch Leads rep)"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-people-eli-based-at-riverbend",
+        "category": "people",
+        "statement": "Eli Mercado works at Riverbend Branch Library.",
+        "entity_ids": [
+          "person-eli-mercado",
+          "place-riverbend-branch"
+        ],
+        "aliases": [
+          "Eli at Riverbend"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-people-devon-is-maras-partner",
+        "category": "people",
+        "statement": "Devon Hart is Mara Lin’s partner in the Lin–Hart Household at Maple Street Townhouse.",
+        "entity_ids": [
+          "person-devon-hart",
+          "person-mara-lin",
+          "household-maple-street",
+          "place-maple-street-townhouse"
+        ],
+        "aliases": [
+          "Devon Hart (Mara’s partner)",
+          "Dev"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-people-jordan-neighbor-running-buddy",
+        "category": "people",
+        "statement": "Jordan Wu is Mara Lin’s neighbor and occasional running buddy, and is a go-to local contact for small favors like package pickup.",
+        "entity_ids": [
+          "person-jordan-wu",
+          "person-mara-lin",
+          "place-maple-street-townhouse"
+        ],
+        "aliases": [
+          "Jordan (neighbor)"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-preference-mara-prefers-aurora-calendar-source",
+        "category": "preference",
+        "statement": "Mara Lin prefers Aurora Calendar to be treated as the source of truth for both work and personal scheduling.",
+        "entity_ids": [
+          "person-mara-lin",
+          "tool-aurora-calendar"
+        ],
+        "aliases": [
+          "Aurora Calendar is the source of truth"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-preference-mara-meeting-recaps-in-pine-notes",
+        "category": "preference",
+        "statement": "After fast meetings, Mara Lin prefers a written recap with decisions and action items captured in Pine Notes.",
+        "entity_ids": [
+          "person-mara-lin",
+          "tool-pine-notes"
+        ],
+        "aliases": [
+          "Written recap in Pine Notes"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-preference-mara-prefers-concise-up-front",
+        "category": "preference",
+        "statement": "Mara Lin prefers concise updates first (a short summary and next steps), with details available only if requested.",
+        "entity_ids": [
+          "person-mara-lin"
+        ],
+        "aliases": [
+          "Summary-first communication"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-preference-mara-focus-time-mornings",
+        "category": "preference",
+        "statement": "Mara Lin prefers to protect focus time in the mornings and schedule most meetings later in the day when possible.",
+        "entity_ids": [
+          "person-mara-lin",
+          "tool-aurora-calendar"
+        ],
+        "aliases": [
+          "Morning focus time"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-preference-mara-hawthorn-work-blocks",
+        "category": "preference",
+        "statement": "When she needs a change of scene, Mara Lin prefers to do a work block at Hawthorn Coffee rather than at Brightgrove HQ.",
+        "entity_ids": [
+          "person-mara-lin",
+          "place-hawthorn-coffee",
+          "place-brightgrove-hq"
+        ],
+        "aliases": [
+          "Work blocks at Hawthorn"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-preference-household-poppy-walks-evening-old",
+        "category": "preference",
+        "statement": "Earlier in 2026, the Lin–Hart Household preferred Poppy’s longer walk to happen in the evening after work.",
+        "entity_ids": [
+          "household-maple-street",
+          "pet-poppy",
+          "person-mara-lin",
+          "person-devon-hart"
+        ],
+        "aliases": [
+          "Poppy long walk in the evening (old)"
+        ],
+        "valid_from": "2026-01-01",
+        "valid_to": "2026-04-14",
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-preference-household-poppy-walks-morning-new",
+        "category": "preference",
+        "statement": "Since mid-April 2026, the Lin–Hart Household prefers Poppy’s longer walk to happen in the morning before the day starts.",
+        "entity_ids": [
+          "household-maple-street",
+          "pet-poppy",
+          "person-mara-lin",
+          "person-devon-hart"
+        ],
+        "aliases": [
+          "Poppy long walk in the morning (current)"
+        ],
+        "valid_from": "2026-04-15",
+        "valid_to": null,
+        "supersedes_fact_id": "fact-preference-household-poppy-walks-evening-old"
+      },
+      {
+        "fact_id": "fact-preference-mara-remote-first-with-it",
+        "category": "preference",
+        "statement": "For coordination with the IT Services Team, Mara Lin prefers to resolve issues asynchronously first and only schedule a live call with Owen Reed if it’s blocked.",
+        "entity_ids": [
+          "person-mara-lin",
+          "team-it-services",
+          "person-owen-reed"
+        ],
+        "aliases": [
+          "Async-first with IT"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-project-coverage-pilot-primary-site-riverbend",
+        "category": "project",
+        "statement": "The Shift Coverage Pilot’s primary pilot site is Riverbend Branch Library, with Eli Mercado serving as the frontline point of contact for staff feedback.",
+        "entity_ids": [
+          "project-shift-coverage-pilot",
+          "place-riverbend-branch",
+          "person-eli-mercado"
+        ],
+        "aliases": [
+          "Coverage Pilot"
+        ],
+        "valid_from": "2026-02-01",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-project-coverage-pilot-tracking-in-lanterndesk",
+        "category": "project",
+        "statement": "For the Shift Coverage Pilot, all pilot-related requests and issues are tracked as tickets in LanternDesk so the team can report trends and turnaround time.",
+        "entity_ids": [
+          "project-shift-coverage-pilot",
+          "product-lanterndesk"
+        ],
+        "aliases": [
+          "Coverage Pilot",
+          "Lantern Desk"
+        ],
+        "valid_from": "2026-02-01",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-project-coverage-pilot-weekly-check-in-branch-leads-council",
+        "category": "project",
+        "statement": "During the Shift Coverage Pilot, Mara Lin runs a weekly check-in with the Branch Leads Council to gather feedback and confirm any process tweaks before they go network-wide.",
+        "entity_ids": [
+          "project-shift-coverage-pilot",
+          "person-mara-lin",
+          "team-branch-leads-council"
+        ],
+        "aliases": [
+          "Coverage Pilot",
+          "Branch Leads"
+        ],
+        "valid_from": "2026-02-08",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-project-kb-refresh-ownership-ops-programs",
+        "category": "project",
+        "statement": "The Knowledge Base Refresh is owned by the Operations Programs Team, with Mara Lin coordinating scope and milestones.",
+        "entity_ids": [
+          "project-knowledge-base-refresh",
+          "team-ops-programs",
+          "person-mara-lin"
+        ],
+        "aliases": [
+          "KB Refresh",
+          "Ops Programs"
+        ],
+        "valid_from": "2026-01-15",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-project-kb-refresh-draft-structure-in-pine-notes",
+        "category": "project",
+        "statement": "The working outline and draft page structure for the Knowledge Base Refresh live in Pine Notes so contributors can comment before anything is finalized.",
+        "entity_ids": [
+          "project-knowledge-base-refresh",
+          "tool-pine-notes"
+        ],
+        "aliases": [
+          "KB Refresh",
+          "Notes"
+        ],
+        "valid_from": "2026-01-20",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-project-kb-refresh-it-review-gate",
+        "category": "project",
+        "statement": "IT Services Team review is a required gate for any Knowledge Base Refresh changes that touch LanternDesk procedures, and Owen Reed is the approver for that review.",
+        "entity_ids": [
+          "project-knowledge-base-refresh",
+          "team-it-services",
+          "product-lanterndesk",
+          "person-owen-reed"
+        ],
+        "aliases": [
+          "KB Refresh",
+          "IT Services",
+          "Lantern Desk"
+        ],
+        "valid_from": "2026-02-05",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-project-summer-reading-ops-kickoff-at-hq",
+        "category": "project",
+        "statement": "Summer Reading Ops 2026 kicked off with an in-person working session at Brightgrove HQ to align timelines and branch dependencies.",
+        "entity_ids": [
+          "project-summer-reading-ops",
+          "place-brightgrove-hq",
+          "organization-brightgrove-pln"
+        ],
+        "aliases": [
+          "SRO 2026",
+          "HQ",
+          "Brightgrove PLN"
+        ],
+        "valid_from": "2026-03-04",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-project-summer-reading-ops-comms-training-partnership",
+        "category": "project",
+        "statement": "For Summer Reading Ops 2026, Sasha Kim partners with Mara Lin through the Comms & Training Working Group to prepare staff-facing updates and training announcements.",
+        "entity_ids": [
+          "project-summer-reading-ops",
+          "person-sasha-kim",
+          "person-mara-lin",
+          "team-comms-training"
+        ],
+        "aliases": [
+          "SRO 2026",
+          "Comms/Training WG"
+        ],
+        "valid_from": "2026-03-10",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-project-quarterly-status-tracked-in-aurora-calendar",
+        "category": "project",
+        "statement": "Mara Lin keeps quarterly project status check-ins for the Shift Coverage Pilot, Knowledge Base Refresh, and Summer Reading Ops 2026 scheduled as a recurring block in Aurora Calendar.",
+        "entity_ids": [
+          "person-mara-lin",
+          "project-shift-coverage-pilot",
+          "project-knowledge-base-refresh",
+          "project-summer-reading-ops",
+          "tool-aurora-calendar"
+        ],
+        "aliases": [
+          "Coverage Pilot",
+          "KB Refresh",
+          "SRO 2026",
+          "Calendar"
+        ],
+        "valid_from": "2026-01-05",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-project-coverage-pilot-expansion-plan-to-hq",
+        "category": "project",
+        "statement": "After the Riverbend Branch Library pilot period, the Shift Coverage Pilot plan includes a controlled expansion for HQ-based teams to test cross-site escalation paths.",
+        "entity_ids": [
+          "project-shift-coverage-pilot",
+          "place-riverbend-branch",
+          "place-brightgrove-hq"
+        ],
+        "aliases": [
+          "Coverage Pilot",
+          "Riverbend Branch",
+          "HQ"
+        ],
+        "valid_from": "2026-04-15",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-decision-coverage-pilot-site-selection-riverbend",
+        "category": "decision",
+        "statement": "Mara Lin and Nina Patel chose Riverbend Branch Library as the first site for the Shift Coverage Pilot because it has consistent supervisor coverage and a reliable feedback loop through Eli Mercado.",
+        "entity_ids": [
+          "person-mara-lin",
+          "person-nina-patel",
+          "place-riverbend-branch",
+          "project-shift-coverage-pilot",
+          "person-eli-mercado"
+        ],
+        "aliases": [
+          "Coverage Pilot",
+          "Riverbend Branch"
+        ],
+        "valid_from": "2026-01-28",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-decision-coverage-pilot-escalation-owner-it-services",
+        "category": "decision",
+        "statement": "For the Shift Coverage Pilot, escalation for system or access problems was assigned to the IT Services Team, with Owen Reed as the escalation contact.",
+        "entity_ids": [
+          "project-shift-coverage-pilot",
+          "team-it-services",
+          "person-owen-reed"
+        ],
+        "aliases": [
+          "Coverage Pilot",
+          "IT Services"
+        ],
+        "valid_from": "2026-02-03",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-decision-kb-refresh-freeze-window-april",
+        "category": "decision",
+        "statement": "Nina Patel approved a documentation freeze for the Knowledge Base Refresh from 2026-04-20 through 2026-04-30 so the team could do a clean review pass and avoid midstream edits.",
+        "entity_ids": [
+          "person-nina-patel",
+          "project-knowledge-base-refresh"
+        ],
+        "aliases": [
+          "KB Refresh"
+        ],
+        "valid_from": "2026-03-25",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-decision-summer-reading-ops-training-format-in-person",
+        "category": "decision",
+        "statement": "For Summer Reading Ops 2026, Mara Lin initially decided to run staff training as an in-person session at Brightgrove HQ to reduce confusion during rollout.",
+        "entity_ids": [
+          "project-summer-reading-ops",
+          "person-mara-lin",
+          "place-brightgrove-hq"
+        ],
+        "aliases": [
+          "SRO 2026",
+          "HQ"
+        ],
+        "valid_from": "2026-03-12",
+        "valid_to": "2026-05-01",
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-decision-summer-reading-ops-training-format-hybrid",
+        "category": "decision",
+        "statement": "For Summer Reading Ops 2026, Mara Lin switched the training plan to a hybrid format: a shorter in-person session at Brightgrove HQ plus a recorded follow-up distributed by the Comms & Training Working Group.",
+        "entity_ids": [
+          "project-summer-reading-ops",
+          "person-mara-lin",
+          "place-brightgrove-hq",
+          "team-comms-training"
+        ],
+        "aliases": [
+          "SRO 2026",
+          "HQ",
+          "Comms/Training WG"
+        ],
+        "valid_from": "2026-05-02",
+        "valid_to": null,
+        "supersedes_fact_id": "fact-decision-summer-reading-ops-training-format-in-person"
+      },
+      {
+        "fact_id": "fact-decision-coverage-pilot-feedback-channel-branch-leads-council",
+        "category": "decision",
+        "statement": "The Branch Leads Council was designated as the official channel for Shift Coverage Pilot feedback, so ad hoc emails get redirected into that group’s weekly discussion.",
+        "entity_ids": [
+          "team-branch-leads-council",
+          "project-shift-coverage-pilot"
+        ],
+        "aliases": [
+          "Branch Leads",
+          "Coverage Pilot"
+        ],
+        "valid_from": "2026-02-10",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-decision-kb-refresh-review-location-hawthorn",
+        "category": "decision",
+        "statement": "To speed up final edits for the Knowledge Base Refresh, Mara Lin and Sasha Kim agreed to do a two-hour review working session at Hawthorn Coffee instead of trying to fit it into a packed HQ day.",
+        "entity_ids": [
+          "project-knowledge-base-refresh",
+          "person-mara-lin",
+          "person-sasha-kim",
+          "place-hawthorn-coffee"
+        ],
+        "aliases": [
+          "KB Refresh",
+          "Hawthorn"
+        ],
+        "valid_from": "2026-04-14",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-decision-coverage-pilot-template-owner-ops-programs",
+        "category": "decision",
+        "statement": "Mara Lin decided that the official Shift Coverage Pilot request and approval templates would be maintained by the Operations Programs Team so updates stay centralized as the pilot evolves.",
+        "entity_ids": [
+          "project-shift-coverage-pilot",
+          "person-mara-lin",
+          "team-ops-programs"
+        ],
+        "aliases": [
+          "Coverage Pilot",
+          "Ops Programs"
+        ],
+        "valid_from": "2026-02-12",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-global-fact-brightgrove-core-systems",
+        "category": "global_fact",
+        "statement": "Across Brightgrove Public Library Network, Aurora Calendar is the standard for scheduling, and LanternDesk is the standard system for tracking operational and IT requests.",
+        "entity_ids": [
+          "organization-brightgrove-pln",
+          "tool-aurora-calendar",
+          "product-lanterndesk"
+        ],
+        "aliases": [
+          "Brightgrove Network standard tools"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-global-fact-lanterndesk-ownership-it-services",
+        "category": "global_fact",
+        "statement": "The IT Services Team administers LanternDesk for Brightgrove Public Library Network, including configuration and helpdesk reporting.",
+        "entity_ids": [
+          "team-it-services",
+          "product-lanterndesk",
+          "organization-brightgrove-pln"
+        ],
+        "aliases": [
+          "LanternDesk admin team"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-global-fact-ops-programs-cross-branch-process",
+        "category": "global_fact",
+        "statement": "The Operations Programs Team is responsible for cross-branch operational consistency at Brightgrove Public Library Network, coordinating process changes and rollout support with other teams.",
+        "entity_ids": [
+          "team-ops-programs",
+          "organization-brightgrove-pln"
+        ],
+        "aliases": [
+          "Ops Programs scope"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-global-fact-branch-leads-council-feedback-channel",
+        "category": "global_fact",
+        "statement": "The Branch Leads Council is Brightgrove’s standing channel for frontline feedback on network-wide operational changes before they are rolled out broadly.",
+        "entity_ids": [
+          "team-branch-leads-council",
+          "organization-brightgrove-pln"
+        ],
+        "aliases": [
+          "Branch Leads feedback loop"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-global-fact-comms-training-rollout-partner",
+        "category": "global_fact",
+        "statement": "The Comms & Training Working Group coordinates staff-facing announcements and training rollouts for Brightgrove Public Library Network initiatives.",
+        "entity_ids": [
+          "team-comms-training",
+          "organization-brightgrove-pln"
+        ],
+        "aliases": [
+          "Comms/Training WG remit"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-global-fact-hq-primary-in-person-site",
+        "category": "global_fact",
+        "statement": "Brightgrove HQ is the network’s primary in-person site for internal meetings and training sessions when teams choose to meet on-site.",
+        "entity_ids": [
+          "place-brightgrove-hq",
+          "organization-brightgrove-pln"
+        ],
+        "aliases": [
+          "HQ as main meeting site"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-global-fact-riverbend-frequent-pilot-site",
+        "category": "global_fact",
+        "statement": "Riverbend Branch Library is a frequent pilot site for Brightgrove operational changes, especially for initiatives that need real-world frontline testing.",
+        "entity_ids": [
+          "place-riverbend-branch",
+          "organization-brightgrove-pln"
+        ],
+        "aliases": [
+          "Riverbend as pilot branch"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-global-fact-pine-notes-internal-drafts",
+        "category": "global_fact",
+        "statement": "Pine Notes is commonly used at Brightgrove for drafting and organizing internal documentation before it is shared more broadly.",
+        "entity_ids": [
+          "tool-pine-notes",
+          "organization-brightgrove-pln"
+        ],
+        "aliases": [
+          "Pine Notes for drafts"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-workflow-meeting-notes-default-pine-notes",
+        "category": "workflow",
+        "statement": "Mara Lin captures meeting notes in Pine Notes and ends each set of notes with a short action-items list labeled \"Next steps\".",
+        "entity_ids": [
+          "person-mara-lin",
+          "tool-pine-notes"
+        ],
+        "aliases": [
+          "Mara meeting-notes pattern"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-workflow-action-items-to-aurora-calendar",
+        "category": "workflow",
+        "statement": "After meetings, Mara Lin converts any action item with a due date into an Aurora Calendar task or event so it shows up on her schedule.",
+        "entity_ids": [
+          "person-mara-lin",
+          "tool-aurora-calendar"
+        ],
+        "aliases": [
+          "Action items to Calendar"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-workflow-lanterndesk-ticketing-for-requests",
+        "category": "workflow",
+        "statement": "Mara Lin routes operational or IT requests through LanternDesk rather than email, so they have an owner, status, and history.",
+        "entity_ids": [
+          "person-mara-lin",
+          "product-lanterndesk"
+        ],
+        "aliases": [
+          "No-email request routing"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-workflow-approval-gate-nina-for-networkwide-comms",
+        "category": "workflow",
+        "statement": "For network-wide communications, Mara Lin gets Nina Patel’s sign-off before Sasha Kim sends anything out through the Comms & Training Working Group.",
+        "entity_ids": [
+          "person-mara-lin",
+          "person-nina-patel",
+          "person-sasha-kim",
+          "team-comms-training"
+        ],
+        "aliases": [
+          "Nina approval gate for comms"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-workflow-coverage-pilot-weekly-checkin-with-owen-eli",
+        "category": "workflow",
+        "statement": "During the Shift Coverage Pilot, Mara Lin runs a weekly check-in with Owen Reed and Eli Mercado to review open issues and decide what needs escalation.",
+        "entity_ids": [
+          "person-mara-lin",
+          "person-owen-reed",
+          "person-eli-mercado",
+          "project-shift-coverage-pilot"
+        ],
+        "aliases": [
+          "Coverage Pilot weekly triage"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-workflow-kb-refresh-intake-via-lanterndesk-old",
+        "category": "workflow",
+        "statement": "From 2026-01-01 through 2026-04-30, Mara Lin collected Knowledge Base Refresh page-fix requests by asking staff to open a LanternDesk ticket tagged for the Knowledge Base Refresh.",
+        "entity_ids": [
+          "person-mara-lin",
+          "project-knowledge-base-refresh",
+          "product-lanterndesk"
+        ],
+        "aliases": [
+          "KB Refresh intake (ticket-based)"
+        ],
+        "valid_from": "2026-01-01",
+        "valid_to": "2026-04-30",
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-workflow-kb-refresh-intake-via-pine-notes-new",
+        "category": "workflow",
+        "statement": "Starting 2026-05-01, Mara Lin switched Knowledge Base Refresh intake to a shared Pine Notes checklist, and only escalations or access problems get a LanternDesk ticket.",
+        "entity_ids": [
+          "person-mara-lin",
+          "project-knowledge-base-refresh",
+          "tool-pine-notes",
+          "product-lanterndesk"
+        ],
+        "aliases": [
+          "KB Refresh intake (checklist-based)"
+        ],
+        "valid_from": "2026-05-01",
+        "valid_to": null,
+        "supersedes_fact_id": "fact-workflow-kb-refresh-intake-via-lanterndesk-old"
+      },
+      {
+        "fact_id": "fact-workflow-household-weekly-planning-calendar-sync",
+        "category": "workflow",
+        "statement": "In the Lin–Hart Household, Mara Lin and Devon Hart do a weekly planning sync by updating shared events in Aurora Calendar for the Maple Street Townhouse and Poppy-related needs.",
+        "entity_ids": [
+          "household-maple-street",
+          "person-mara-lin",
+          "person-devon-hart",
+          "tool-aurora-calendar",
+          "place-maple-street-townhouse",
+          "pet-poppy"
+        ],
+        "aliases": [
+          "Household weekly calendar sync"
+        ],
+        "valid_from": null,
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-plan-kb-refresh-freeze-window",
+        "category": "plan",
+        "statement": "Mara blocked 2026-04-06 through 2026-04-10 on Aurora Calendar as a documentation freeze window to finish the Knowledge Base Refresh outline and page inventory.",
+        "entity_ids": [
+          "person-mara-lin",
+          "project-knowledge-base-refresh",
+          "tool-aurora-calendar"
+        ],
+        "aliases": [
+          "KB freeze week"
+        ],
+        "valid_from": "2026-03-01",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-plan-coverage-pilot-kickoff-at-hq",
+        "category": "plan",
+        "statement": "The Shift Coverage Pilot kickoff is planned as an in-person session at Brightgrove HQ on 2026-03-19, with Mara leading the agenda and Nina attending for approvals.",
+        "entity_ids": [
+          "project-shift-coverage-pilot",
+          "place-brightgrove-hq",
+          "person-mara-lin",
+          "person-nina-patel"
+        ],
+        "aliases": [
+          "coverage pilot kickoff"
+        ],
+        "valid_from": "2026-02-15",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-plan-riverbend-pilot-site-visit",
+        "category": "plan",
+        "statement": "Mara planned an on-site visit to Riverbend Branch Library on 2026-04-23 to gather frontline feedback for the Shift Coverage Pilot with Eli.",
+        "entity_ids": [
+          "person-mara-lin",
+          "place-riverbend-branch",
+          "project-shift-coverage-pilot",
+          "person-eli-mercado"
+        ],
+        "aliases": [
+          "Riverbend visit"
+        ],
+        "valid_from": "2026-03-10",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-plan-summer-reading-ops-draft-deadline",
+        "category": "plan",
+        "statement": "For Summer Reading Ops 2026, Mara set a target to have the staffing guidance draft ready for Comms & Training Working Group review by 2026-05-08.",
+        "entity_ids": [
+          "project-summer-reading-ops",
+          "person-mara-lin",
+          "team-comms-training"
+        ],
+        "aliases": [
+          "SRO staffing guidance draft"
+        ],
+        "valid_from": "2026-04-01",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-plan-ops-programs-team-day-hq",
+        "category": "plan",
+        "statement": "The Operations Programs Team scheduled an in-person team day at Brightgrove HQ on 2026-06-11, and Mara is keeping that day meeting-light in Aurora Calendar.",
+        "entity_ids": [
+          "team-ops-programs",
+          "place-brightgrove-hq",
+          "person-mara-lin",
+          "tool-aurora-calendar"
+        ],
+        "aliases": [
+          "Ops Programs team day"
+        ],
+        "valid_from": "2026-05-01",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-plan-household-vet-reminder-poppy",
+        "category": "plan",
+        "statement": "Mara set a reminder in Aurora Calendar for Poppy’s annual vet appointment planning on 2026-09-14 for the Lin–Hart Household.",
+        "entity_ids": [
+          "person-mara-lin",
+          "pet-poppy",
+          "household-maple-street",
+          "tool-aurora-calendar"
+        ],
+        "aliases": [
+          "Poppy vet reminder"
+        ],
+        "valid_from": "2026-01-10",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-plan-hawthorn-weekend-planning-block-old",
+        "category": "plan",
+        "statement": "Mara and Devon used to keep a recurring Saturday morning planning block at Hawthorn Coffee on Aurora Calendar.",
+        "entity_ids": [
+          "person-mara-lin",
+          "person-devon-hart",
+          "place-hawthorn-coffee",
+          "tool-aurora-calendar"
+        ],
+        "aliases": [
+          "Saturday Hawthorn planning"
+        ],
+        "valid_from": "2026-01-03",
+        "valid_to": "2026-04-25",
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-plan-hawthorn-weekend-planning-block-new",
+        "category": "plan",
+        "statement": "Starting in late April, Mara and Devon moved their recurring weekend planning block to Sunday afternoons at home (Maple Street Townhouse) and keep it on Aurora Calendar.",
+        "entity_ids": [
+          "person-mara-lin",
+          "person-devon-hart",
+          "place-maple-street-townhouse",
+          "tool-aurora-calendar"
+        ],
+        "aliases": [
+          "Sunday home planning block"
+        ],
+        "valid_from": "2026-04-26",
+        "valid_to": null,
+        "supersedes_fact_id": "fact-plan-hawthorn-weekend-planning-block-old"
+      },
+      {
+        "fact_id": "fact-household-logistics-trash-and-recycling-night",
+        "category": "household_logistics",
+        "statement": "At the Maple Street Townhouse, the Lin–Hart Household puts trash and recycling out on Tuesday nights, and whoever is home last handles it by default.",
+        "entity_ids": [
+          "place-maple-street-townhouse",
+          "household-maple-street",
+          "person-mara-lin",
+          "person-devon-hart"
+        ],
+        "aliases": [
+          "Tuesday curb night"
+        ],
+        "valid_from": "2026-01-01",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-household-logistics-poppy-food-storage",
+        "category": "household_logistics",
+        "statement": "Poppy’s kibble is stored in a labeled airtight bin in the pantry at the Maple Street Townhouse, and Mara keeps the reorder note in Pine Notes.",
+        "entity_ids": [
+          "pet-poppy",
+          "place-maple-street-townhouse",
+          "person-mara-lin",
+          "tool-pine-notes"
+        ],
+        "aliases": [
+          "kibble bin"
+        ],
+        "valid_from": "2026-01-01",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-household-logistics-package-backup-jordan",
+        "category": "household_logistics",
+        "statement": "If a delivery arrives when neither Mara nor Devon is home, they text Jordan Wu to grab the package and hold it until they’re back.",
+        "entity_ids": [
+          "person-mara-lin",
+          "person-devon-hart",
+          "person-jordan-wu",
+          "household-maple-street"
+        ],
+        "aliases": [
+          "Jordan package backup"
+        ],
+        "valid_from": "2026-01-15",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-household-logistics-grocery-list-location",
+        "category": "household_logistics",
+        "statement": "The shared grocery list for the Lin–Hart Household lives in a pinned Pine Notes note, and Mara and Devon both add to it during the week.",
+        "entity_ids": [
+          "household-maple-street",
+          "tool-pine-notes",
+          "person-mara-lin",
+          "person-devon-hart"
+        ],
+        "aliases": [
+          "pinned grocery note"
+        ],
+        "valid_from": "2026-01-01",
+        "valid_to": null,
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-household-logistics-poppy-midday-walk-old",
+        "category": "household_logistics",
+        "statement": "Earlier in 2026, Devon usually handled Poppy’s midday walk on weekdays because his schedule was more flexible.",
+        "entity_ids": [
+          "person-devon-hart",
+          "pet-poppy",
+          "person-mara-lin",
+          "household-maple-street"
+        ],
+        "aliases": [
+          "midday walk (Devon)"
+        ],
+        "valid_from": "2026-01-01",
+        "valid_to": "2026-05-31",
+        "supersedes_fact_id": null
+      },
+      {
+        "fact_id": "fact-household-logistics-poppy-midday-walk-new",
+        "category": "household_logistics",
+        "statement": "From June 2026 onward, Mara usually handles Poppy’s midday walk on weekdays, and she blocks a 20-minute slot on Aurora Calendar when she can.",
+        "entity_ids": [
+          "person-mara-lin",
+          "pet-poppy",
+          "tool-aurora-calendar",
+          "household-maple-street"
+        ],
+        "aliases": [
+          "midday walk (Mara)"
+        ],
+        "valid_from": "2026-06-01",
+        "valid_to": null,
+        "supersedes_fact_id": "fact-household-logistics-poppy-midday-walk-old"
+      }
+    ]
+  }
+}

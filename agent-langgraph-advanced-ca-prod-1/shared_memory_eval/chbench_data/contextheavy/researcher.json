@@ -1,0 +1,21 @@
+{
+  "track": "researcher",
+  "description": "A researcher tracking methods, benchmarks, and design decisions for a retrieval system. Tests factual recall of technical parameters, causal recall of method choices, multi-fact synthesis, and abstention on unmeasured results.",
+  "memories": [
+    {"id": "res-001", "text": "LongMemEval is a benchmark for long-term conversational memory: it tests whether a system can recall facts stated across many earlier chat sessions.", "metadata": {"timestamp": "2026-04-01", "type": "benchmark"}},
+    {"id": "res-002", "text": "LoCoMo is a long-conversation memory benchmark built from very long multi-session dialogues with question-answer probes.", "metadata": {"timestamp": "2026-04-02", "type": "benchmark"}},
+    {"id": "res-003", "text": "Decision: build a custom profession-based benchmark, because existing benchmarks miss real cross-project recall and causal 'why did we decide' recall that professionals actually rely on.", "metadata": {"timestamp": "2026-06-01", "type": "decision"}},
+    {"id": "res-004", "text": "Context-Heavy's hybrid retrieval fuses full-text search and vector search with Reciprocal Rank Fusion using the constant k=60.", "metadata": {"timestamp": "2026-03-10", "type": "method"}},
+    {"id": "res-005", "text": "After RRF fusion, a cross-encoder reranker (nvidia/rerank-qa-mistral-4b) reorders the top candidates before the answer is synthesized.", "metadata": {"timestamp": "2026-06-12", "type": "method"}},
+    {"id": "res-006", "text": "Chunking splits documents into 1200-byte chunks with 200 bytes of overlap, preferring paragraph then sentence boundaries. Each node keeps its two best-matching chunks via max-pooling.", "metadata": {"timestamp": "2026-03-20", "type": "method"}},
+    {"id": "res-007", "text": "Standard retrieval metrics are nDCG, recall@k, and MRR. Answer quality — faithfulness and abstention correctness — requires an LLM-as-judge with a fixed model and rubric.", "metadata": {"timestamp": "2026-04-15", "type": "metric"}}
+  ],
+  "questions": [
+    {"id": "res-q1", "question": "Why build a custom benchmark instead of only using LongMemEval and LoCoMo?", "answer": "Because existing benchmarks miss real cross-project recall and causal 'why did we decide' recall that professionals rely on.", "relevant_ids": ["res-003"], "metadata": {"type": "causal"}},
+    {"id": "res-q2", "question": "What fuses full-text and vector search results in Context-Heavy, and with what parameter?", "answer": "Reciprocal Rank Fusion (RRF) with the constant k=60.", "relevant_ids": ["res-004"], "metadata": {"type": "factual"}},
+    {"id": "res-q3", "question": "Which reranker model reorders candidates after fusion?", "answer": "nvidia/rerank-qa-mistral-4b.", "relevant_ids": ["res-005"], "metadata": {"type": "factual"}},
+    {"id": "res-q4", "question": "What is Context-Heavy's exact F1 score on the SQuAD benchmark?", "answer": null, "relevant_ids": [], "expect_abstain": true, "metadata": {"type": "abstention"}},
+    {"id": "res-q5", "question": "Describe Context-Heavy's chunking parameters.", "answer": "1200-byte chunks with 200 bytes of overlap on paragraph then sentence boundaries, keeping the two best chunks per node by max-pooling.", "relevant_ids": ["res-006"], "metadata": {"type": "synthesis"}},
+    {"id": "res-q6", "question": "Which metrics need an LLM-as-judge rather than ranked-list math?", "answer": "Answer faithfulness and abstention correctness need an LLM judge; recall@k, MRR, and nDCG are computed from the ranked list.", "relevant_ids": ["res-007"], "metadata": {"type": "factual"}}
+  ]
+}

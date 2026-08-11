@@ -1,0 +1,193 @@
+{
+  "schema_version": "realistic-search-memory-rewrites-v2",
+  "generated_at": "2026-08-04T17:32:24.918654+00:00",
+  "model_endpoint": "databricks-gpt-5-2",
+  "source_curated": "/Users/kevin.yan/Repos/app-templates/agent-langgraph-advanced/shared_memory_eval/realistic_search_benchmark/artifacts/pilot_curated.json",
+  "profile_quotas": {
+    "short": 30,
+    "medium": 20,
+    "episodic": 10
+  },
+  "rewrites": [
+    {
+      "memory_id": "mem-0001",
+      "profile": "episodic",
+      "description": "System and access issue escalation set for the Coverage Pilot",
+      "contents": "During the Shift Coverage Pilot, ownership for escalation of system or access problems was assigned to the IT Services Team. Owen Reed was named as the escalation contact for those issues. This escalation path sits alongside the pilot’s regular feedback and issue-review cadence, including weekly check-ins that involve Mara Lin, Owen Reed, and Eli Mercado to review open items and decide what needs escalation. IT Services also administers LanternDesk for the Brightgrove Public Library Network, including configuration and helpdesk reporting."
+    },
+    {
+      "memory_id": "mem-0002",
+      "profile": "episodic",
+      "description": "Coverage Pilot feedback was routed through the Branch Leads Council",
+      "contents": "A decision was made to treat the Branch Leads Council as the official channel for Shift Coverage Pilot feedback. As a result, ad hoc emails about the pilot were redirected into the council’s weekly discussion rather than handled in parallel threads. This aligned with the existing practice during the pilot where Mara Lin runs a weekly check-in with the Branch Leads Council to gather feedback and confirm process tweaks before anything goes network-wide. Eli Mercado participates as a regular representative in the Branch Leads Council for frontline feedback."
+    },
+    {
+      "memory_id": "mem-0003",
+      "profile": "episodic",
+      "description": "Documentation freeze set for the Knowledge Base Refresh review window",
+      "contents": "Nina Patel approved a documentation freeze for the Knowledge Base Refresh covering 2026-04-20 through 2026-04-30. The purpose of the freeze was to let the team complete a clean review pass and avoid midstream edits while that review was underway. In the broader refresh workflow, the working outline and draft page structure were kept in Pine Notes so contributors could comment before anything was finalized. Separately, Mara Lin had also blocked 2026-04-06 through 2026-04-10 on Aurora Calendar as a documentation freeze window to finish the outline and page inventory."
+    },
+    {
+      "memory_id": "mem-0004",
+      "profile": "episodic",
+      "description": "Summer Reading Ops 2026 training-format decision record",
+      "contents": "For Summer Reading Ops 2026, Mara Lin changed the staff training approach from the earlier plan. The final format became a hybrid: a shorter in-person session at Brightgrove HQ paired with a recorded follow-up. The recorded component was to be distributed by the Comms & Training Working Group. This fit the working group’s remit of coordinating staff-facing announcements and training rollouts for Brightgrove Public Library Network initiatives, and it leveraged HQ as the network’s primary in-person site when teams choose to meet on-site."
+    },
+    {
+      "memory_id": "mem-0005",
+      "profile": "medium",
+      "description": "Initial SRO 2026 staff training plan was an HQ-only session",
+      "contents": "Mara Lin initially chose to run Summer Reading Ops 2026 staff training as an in-person session at Brightgrove HQ. The intent was to reduce confusion during rollout by keeping training together on-site. This plan was later superseded by a different training format."
+    },
+    {
+      "memory_id": "mem-0006",
+      "profile": "medium",
+      "description": "Branch Leads Council provides frontline input before network-wide rollouts",
+      "contents": "The Branch Leads Council serves as Brightgrove’s standing channel for frontline feedback on network-wide operational changes. Its role is to gather and surface input before changes are rolled out broadly across the network. This makes it the default forum for operational feedback outside any single project’s specific communication plan."
+    },
+    {
+      "memory_id": "mem-0053",
+      "profile": "episodic",
+      "description": "Riverbend selected to launch the Shift Coverage Pilot first",
+      "contents": "Mara Lin and Nina Patel selected Riverbend Branch Library as the first site for the Shift Coverage Pilot. They chose Riverbend because it has consistent supervisor coverage and because there was a reliable feedback loop through Eli Mercado. After the selection, Riverbend was established as the pilot’s primary site, with Eli serving as the frontline point of contact for staff feedback. The pilot also used a broader feedback structure, including Mara’s weekly check-in with the Branch Leads Council to gather feedback and confirm any process tweaks before they go network-wide. Mara later planned an on-site visit to Riverbend Branch Library on 2026-04-23 to gather frontline feedback for the pilot with Eli."
+    },
+    {
+      "memory_id": "mem-0054",
+      "profile": "medium",
+      "description": "Hawthorn Coffee chosen for the KB Refresh final edit working session",
+      "contents": "Mara Lin and Sasha Kim agreed to hold a two-hour Knowledge Base Refresh review session at Hawthorn Coffee. They chose the location to speed up final edits rather than squeeze the work into an already packed day at Brightgrove HQ."
+    },
+    {
+      "memory_id": "mem-0055",
+      "profile": "medium",
+      "description": "Ownership of Coverage Pilot templates centralized under Operations Programs",
+      "contents": "Mara Lin decided that the Operations Programs Team would maintain the official Shift Coverage Pilot request and approval templates. Under that arrangement, updates to those templates stay centralized with Operations Programs as the pilot evolves over time."
+    },
+    {
+      "memory_id": "mem-0013",
+      "profile": "medium",
+      "description": "When both are out, Jordan Wu is the package backup",
+      "contents": "If a delivery arrives when neither Mara nor Devon is home, Jordan Wu is the fallback contact. They text Jordan to pick up the package and hold it until they’re back. This keeps deliveries from being left unattended when the house is empty."
+    },
+    {
+      "memory_id": "mem-0015",
+      "profile": "episodic",
+      "description": "June change to Poppy’s weekday midday-walk routine",
+      "contents": "Earlier in 2026, Devon usually handled Poppy’s weekday midday walk because his schedule was more flexible. Starting in June 2026, the handoff changed: Mara usually takes the midday walk and, when possible, blocks a 20-minute slot for it in Aurora Calendar. Mara and Devon keep changes like this coordinated during their weekly household planning sync. They update shared Aurora Calendar events there for household and Poppy-related needs, so the new walking responsibility is reflected alongside the rest of their shared routine."
+    },
+    {
+      "memory_id": "mem-0016",
+      "profile": "medium",
+      "description": "Tuesday nights are bin night, handled by whoever’s home last",
+      "contents": "At the Maple Street Townhouse, trash and recycling are put out on Tuesday nights. By default, whoever is home last is the one who takes the bins out. This rule covers the routine without needing to assign it in advance."
+    },
+    {
+      "memory_id": "mem-0022",
+      "profile": "medium",
+      "description": "Sasha Kim’s Brightgrove role and working-group connection to Mara",
+      "contents": "Sasha Kim is a communications specialist at Brightgrove. She works closely with Mara Lin as a partner in the Comms & Training Working Group. This is the main context for how they collaborate on staff communications and related work."
+    },
+    {
+      "memory_id": "mem-0024",
+      "profile": "medium",
+      "description": "Documentation freeze block set for Knowledge Base Refresh deliverables",
+      "contents": "Mara blocked 2026-04-06 through 2026-04-10 on Aurora Calendar as a documentation freeze window. The purpose of that block was to finish the Knowledge Base Refresh outline and complete the page inventory. Keeping it on the calendar protected time specifically for those documentation tasks."
+    },
+    {
+      "memory_id": "mem-0027",
+      "profile": "episodic",
+      "description": "Preferred timing for Poppy’s longer walk changed in mid-April 2026",
+      "contents": "Before April 15, 2026, Mara and Devon generally preferred to take Poppy’s longer walk in the evening after work. On April 15, they changed that routine so the longer walk would happen in the morning before the day starts. They carried the change into their weekly household planning sync, where they coordinate Poppy-related needs and other home logistics. Aurora Calendar remains their shared place for keeping those plans aligned, and the morning walk is now the current preference."
+    },
+    {
+      "memory_id": "mem-0029",
+      "profile": "medium",
+      "description": "Mara wants fast-meeting recaps written up in Pine Notes",
+      "contents": "After fast meetings, Mara Lin prefers a written recap rather than relying on an informal verbal summary. She specifically wants decisions and action items captured in Pine Notes. This creates a clear record of what was agreed and what needs to happen next."
+    },
+    {
+      "memory_id": "mem-0060",
+      "profile": "episodic",
+      "description": "Weekend planning moved from Saturday at Hawthorn to Sunday at home",
+      "contents": "Mara and Devon previously kept a recurring Saturday morning planning block at Hawthorn Coffee on Aurora Calendar. Starting in late April 2026, they moved that recurring weekend planning block to Sunday afternoons at home at the Maple Street Townhouse. They continue to keep the block on Aurora Calendar so it stays consistent week to week. This change fits their broader habit of doing a weekly planning sync by updating shared events in Aurora Calendar for household and Poppy-related needs. Hawthorn Coffee remains a place Mara prefers for work blocks when she wants a change of scene."
+    },
+    {
+      "memory_id": "mem-0034",
+      "profile": "medium",
+      "description": "Riverbend is the pilot site, with Eli as feedback contact",
+      "contents": "The Shift Coverage Pilot is primarily being run at Riverbend Branch Library. Staff feedback routes through Eli Mercado, who serves as the frontline point of contact. This establishes both the main pilot location and the person responsible for gathering and fielding input from staff during the pilot."
+    },
+    {
+      "memory_id": "mem-0035",
+      "profile": "medium",
+      "description": "Track all Shift Coverage Pilot issues as LanternDesk tickets",
+      "contents": "For the Shift Coverage Pilot, every request and issue tied to the pilot should be logged in LanternDesk as a ticket. The purpose is to keep the work centralized so the team can report on trends and turnaround time. This applies to all pilot-related items rather than only major incidents."
+    },
+    {
+      "memory_id": "mem-0036",
+      "profile": "medium",
+      "description": "Mara holds weekly Branch Leads Council check-ins during pilot",
+      "contents": "During the Shift Coverage Pilot, Mara Lin runs a weekly check-in with the Branch Leads Council. These check-ins are used to gather feedback and to confirm any process tweaks before changes are applied network-wide. The cadence provides a regular point to validate adjustments while the pilot is in progress."
+    },
+    {
+      "memory_id": "mem-0037",
+      "profile": "medium",
+      "description": "KB Refresh outline and draft structure are kept in Pine Notes",
+      "contents": "The working outline and draft page structure for the Knowledge Base Refresh are maintained in Pine Notes. Keeping the drafts there allows contributors to review and comment before anything is finalized. Pine Notes is the shared location for the in-progress structure rather than a later-stage publishing destination."
+    },
+    {
+      "memory_id": "mem-0040",
+      "profile": "medium",
+      "description": "Quarterly status check-ins are blocked on Aurora Calendar",
+      "contents": "Mara Lin keeps quarterly project status check-ins scheduled as a recurring block in Aurora Calendar. These check-ins cover the Shift Coverage Pilot, the Knowledge Base Refresh, and Summer Reading Ops 2026. The recurring calendar block serves as the standing cadence for reviewing status across these major efforts."
+    },
+    {
+      "memory_id": "mem-0041",
+      "profile": "medium",
+      "description": "Sasha and Mara partner on SRO 2026 comms and training",
+      "contents": "For Summer Reading Ops 2026, Sasha Kim partners with Mara Lin through the Comms & Training Working Group. Their collaboration focuses on preparing staff-facing updates and training announcements. The working group channel is the mechanism used to coordinate these communications and training-related deliverables."
+    },
+    {
+      "memory_id": "mem-0042",
+      "profile": "episodic",
+      "description": "Summer Reading Ops 2026 kickoff and follow-up record",
+      "contents": "Summer Reading Ops 2026 began with an in-person working session at Brightgrove HQ. During the kickoff, the team aligned timelines and branch dependencies. After the session, Sasha Kim and Mara Lin continued the work through the Comms & Training Working Group, preparing staff-facing updates and training announcements. That handoff placed the follow-up communication and training work with the group that coordinates those staff-facing communication and training rollouts across the Brightgrove Public Library Network."
+    },
+    {
+      "memory_id": "mem-0043",
+      "profile": "medium",
+      "description": "After meetings, due-date action items are added to Aurora Calendar",
+      "contents": "After meetings, Mara turns any action item that has a due date into an Aurora Calendar task or event. The point is to make the commitment appear directly on her schedule. This step applies specifically to action items with due dates."
+    },
+    {
+      "memory_id": "mem-0045",
+      "profile": "medium",
+      "description": "Shift Coverage Pilot issues are triaged weekly with Owen and Eli",
+      "contents": "During the Shift Coverage Pilot, Mara runs a weekly check-in with Owen Reed and Eli Mercado. In that meeting, they review open issues and decide what needs escalation. The weekly cadence is used to keep triage and escalation decisions moving during the pilot."
+    },
+    {
+      "memory_id": "mem-0046",
+      "profile": "medium",
+      "description": "Weekly household planning is done by updating shared Aurora Calendar events",
+      "contents": "In the Lin–Hart household, Mara and Devon do a weekly planning sync by updating shared events in Aurora Calendar. They use those shared events to coordinate needs for the Maple Street Townhouse and Poppy-related items. Keeping the calendar current is their standard method for aligning on home logistics."
+    },
+    {
+      "memory_id": "mem-0047",
+      "profile": "medium",
+      "description": "KB Refresh page-fix intake used LanternDesk tickets through April 2026",
+      "contents": "From 2026-01-01 through 2026-04-30, Mara collected Knowledge Base Refresh page-fix requests via LanternDesk. Staff were asked to open a LanternDesk ticket and tag it for the Knowledge Base Refresh. That ticket-based approach was the intake method throughout this date range."
+    },
+    {
+      "memory_id": "mem-0048",
+      "profile": "episodic",
+      "description": "May change to the Knowledge Base Refresh intake process",
+      "contents": "From 2026-01-01 through 2026-04-30, Knowledge Base Refresh page-fix requests were collected by asking staff to open a LanternDesk ticket tagged for the Knowledge Base Refresh. Starting 2026-05-01, Mara switched the intake process to a shared Pine Notes checklist for routine page-fix submissions. After this change, LanternDesk tickets are used only for escalations or access problems. The working outline and draft page structure for the Knowledge Base Refresh live in Pine Notes so contributors can comment before anything is finalized. Pine Notes is also commonly used at Brightgrove for drafting and organizing internal documentation before it is shared more broadly."
+    },
+    {
+      "memory_id": "mem-0049",
+      "profile": "medium",
+      "description": "Operational and IT requests go through LanternDesk rather than email",
+      "contents": "Mara routes operational or IT requests through LanternDesk instead of handling them over email. She uses LanternDesk so each request has an owner, a status, and a history. This is her usual process for tracking and managing those requests."
+    }
+  ]
+}

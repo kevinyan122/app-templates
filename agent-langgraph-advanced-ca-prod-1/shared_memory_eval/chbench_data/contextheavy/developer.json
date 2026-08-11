@@ -1,0 +1,25 @@
+{
+  "track": "developer",
+  "description": "A developer accumulating knowledge across an interconnected product portfolio over months. Tests cross-project recall, causal 'why did we decide' recall, temporal updates/supersession, and abstention.",
+  "memories": [
+    {"id": "dev-001", "text": "letX is a LaTeX-based resume and document builder. It consumes Quantum Sketch's video API to auto-generate tutorial walkthroughs for each template.", "metadata": {"project": "letX", "timestamp": "2026-01-05"}},
+    {"id": "dev-002", "text": "Quantum Sketch (QS) is splitting into two services: a web app (QS-2.0) for end users, and an API platform that other products call for programmatic video generation.", "metadata": {"project": "quantum-sketch", "timestamp": "2026-01-12"}},
+    {"id": "dev-003", "text": "Context-Heavy is the shared brain. It exposes a REST API and an MCP server over SSE so external agents like Claude Code, Codex, and Hermes can share one memory.", "metadata": {"project": "context-heavy", "timestamp": "2026-02-01"}},
+    {"id": "dev-004", "text": "common-knowledge is the local-first open-source skill. Its ck bridge pushes captured notes into Context-Heavy through POST /v1/sync/ck, so local notes land in the cloud brain.", "metadata": {"project": "common-knowledge", "timestamp": "2026-02-10"}},
+    {"id": "dev-005", "text": "Decision: Context-Heavy moved its embedding and chat provider from OpenRouter to NVIDIA NIM, because the OpenRouter key hit its total spending limit and started returning 403 errors.", "metadata": {"project": "context-heavy", "timestamp": "2026-06-10", "type": "decision"}},
+    {"id": "dev-006", "text": "Context-Heavy now embeds with BGE-M3 at 1024 dimensions. Migration 014 pinned the embedding column to vector(1024) and added an HNSW index, so semantic queries use an index scan instead of a full scan.", "metadata": {"project": "context-heavy", "timestamp": "2026-06-12", "type": "update", "supersedes": "dev-007"}},
+    {"id": "dev-007", "text": "Context-Heavy's embeddings originally used a free multimodal model with an unconstrained vector column and no ANN index, so every semantic query was an exact full scan over all rows.", "metadata": {"project": "context-heavy", "timestamp": "2026-03-01", "type": "superseded", "valid_until": "2026-06-12"}},
+    {"id": "dev-008", "text": "offSchool is an education product that uses both the Context-Heavy brain (for student memory) and Quantum Sketch's video API (for lesson videos).", "metadata": {"project": "offschool", "timestamp": "2026-02-20"}},
+    {"id": "dev-009", "text": "aibhai is an experiment in the style of t3.chat — a fast multi-model chat and code playground.", "metadata": {"project": "aibhai", "timestamp": "2026-03-15"}},
+    {"id": "dev-010", "text": "Context-Heavy's Ask feature has three modes: fast (single-pass retrieval), deep (multi-hop, names what is missing and runs follow-up retrievals), and global (answers from community summaries).", "metadata": {"project": "context-heavy", "timestamp": "2026-05-01"}}
+  ],
+  "questions": [
+    {"id": "dev-q1", "question": "Which products consume Quantum Sketch's video API?", "answer": "letX and offSchool both consume Quantum Sketch's video API.", "relevant_ids": ["dev-001", "dev-008"], "metadata": {"type": "cross-project"}},
+    {"id": "dev-q2", "question": "Why did Context-Heavy switch its embedding provider to NVIDIA NIM?", "answer": "Because the OpenRouter key hit its total spending limit and returned 403 errors.", "relevant_ids": ["dev-005"], "metadata": {"type": "causal"}},
+    {"id": "dev-q3", "question": "What embedding model does Context-Heavy currently use, and at what dimension?", "answer": "BGE-M3 at 1024 dimensions.", "relevant_ids": ["dev-006"], "metadata": {"type": "temporal-current"}},
+    {"id": "dev-q4", "question": "How do notes from common-knowledge get into Context-Heavy?", "answer": "Through the ck bridge, which pushes notes via POST /v1/sync/ck.", "relevant_ids": ["dev-004"], "metadata": {"type": "factual"}},
+    {"id": "dev-q5", "question": "What price does offSchool charge enterprise customers per seat?", "answer": null, "relevant_ids": [], "expect_abstain": true, "metadata": {"type": "abstention"}},
+    {"id": "dev-q6", "question": "What does Context-Heavy expose so external agents can share its memory?", "answer": "A REST API and an MCP server over SSE.", "relevant_ids": ["dev-003"], "metadata": {"type": "factual"}},
+    {"id": "dev-q7", "question": "Did Context-Heavy ever run without an ANN index on its embeddings?", "answer": "Yes. Originally it used an unconstrained vector column with no ANN index and every query was a full scan, until migration 014 added the HNSW index.", "relevant_ids": ["dev-007", "dev-006"], "metadata": {"type": "temporal-contradiction"}}
+  ]
+}
