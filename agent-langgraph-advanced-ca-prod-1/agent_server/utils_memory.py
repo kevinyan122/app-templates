@@ -443,13 +443,14 @@ def memory_tools(*, read_only: bool = False):
         This is the mandatory first retrieval step on EVERY user turn. Call it at least once before
         answering, even when the request seems general, impersonal, fully answerable from the current
         conversation, or unlikely to have relevant memory. The first query must be based on the user's
-        latest request. Make it a compact retrieval rewrite rather than merely repeating the user's
-        wording: express the underlying memory topic and add one to three closely related facets that
-        could appear in a relevant memory description, such as preferences, constraints, goals,
-        dates, workflow, location, or project status. Use only facets supported by the request,
-        necessary recent context, or generic category labels; never invent specific facts. Include
-        only enough prior context to make references self-contained, aim for roughly 6-20 words, and
-        omit conversational filler and the action the user wants performed. Search again only for a
+        latest request. Rewrite it as the smallest distinctive topic phrase likely to identify the
+        relevant memory. Preserve names, identifiers, product names, dates, and error codes exactly
+        once. Omit the requested answer attribute (such as name, date, owner, or status) when the
+        topic alone is sufficient. Add at most one grounded facet only when genuinely needed to
+        disambiguate the topic; never append generic expansion lists such as "projects, demos, code,
+        or presentation identifiers." Include only enough prior context to make references
+        self-contained, aim for roughly 3-12 words, and omit conversational filler and the action the
+        user wants performed. Search again only for a
         meaningfully narrower, broader, or differently focused information need; never repeat the
         same or an equivalent query.
 

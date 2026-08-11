@@ -90,18 +90,22 @@ def test_prompt_and_tools_require_get_for_relevant_full_memories():
     assert "On EVERY user turn, call search_memory at least once" in system_prompt
     assert "mandatory even when the request seems general, impersonal" in system_prompt
     assert "semantic query based on the user's latest request" in system_prompt
-    assert "compact retrieval rewrite rather than merely repeating" in system_prompt
-    assert "add one to three closely related facets" in system_prompt
-    assert "never invent specific facts" in system_prompt
-    assert "Aim for roughly 6-20 words" in system_prompt
+    assert "smallest distinctive topic phrase" in system_prompt
+    assert "Omit the requested answer attribute" in system_prompt
+    assert "Add at most one grounded facet" in system_prompt
+    assert "never append generic expansion lists" in system_prompt
+    assert "Aim for roughly 3-12 words" in system_prompt
+    assert '"What is the name of my CA demo project?" -> "CA demo project"' in system_prompt
     assert "never repeat the same or an equivalent query" in system_prompt
     assert "Do not repeat terms or keyword-stuff the query" in system_prompt
     assert "mandatory first retrieval step on EVERY user turn" in search_description
     assert "fully answerable from the current conversation" in search_description
     assert "first query must be based on the user's latest request" in search_description
-    assert "compact retrieval rewrite rather than merely repeating" in search_description
-    assert "add one to three closely related facets" in search_description
-    assert "never invent specific facts" in search_description
+    assert "smallest distinctive topic phrase" in search_description
+    assert "Omit the requested answer attribute" in search_description
+    assert "Add at most one grounded facet" in search_description
+    assert "never append generic expansion lists" in search_description
+    assert "roughly 3-12 words" in search_description
 
     assert "does not return scores or full contents" in system_prompt
     assert "has_contents=true that is worth looking into" in system_prompt

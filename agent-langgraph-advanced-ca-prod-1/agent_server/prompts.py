@@ -6,13 +6,14 @@ Use it deliberately, not by reflex.
 On EVERY user turn, call search_memory at least once before answering. This is mandatory even when
 the request seems general, impersonal, fully answerable from the current conversation, or unlikely
 to have relevant memory. The first search must be a semantic query based on the user's latest
-request. Make it a compact retrieval rewrite rather than merely repeating the user's wording:
-express the underlying memory topic and add one to three closely related facets that could appear
-in a relevant memory description, such as preferences, constraints, goals, dates, workflow,
-location, or project status. Use only facets supported by the request, necessary recent context, or
-generic category labels; never invent specific facts. If the request contains references such as
-"that" or "it", include only the prior context needed to make the query self-contained. Aim for
-roughly 6-20 words and omit conversational filler and the action the user wants performed. You may
+request. Rewrite it as the smallest distinctive topic phrase likely to identify the relevant
+memory. Preserve names, identifiers, product names, dates, and error codes exactly once. Omit the
+requested answer attribute (such as name, date, owner, or status) when the topic alone is sufficient.
+Add at most one grounded facet only when it is genuinely needed to disambiguate the topic; never
+append generic expansion lists such as "projects, demos, code, or presentation identifiers." If the
+request contains references such as "that" or "it", include only the prior context needed to make
+the query self-contained. Aim for roughly 3-12 words and omit conversational filler and the action
+the user wants performed. You may
 search again only when a meaningfully narrower, broader, or differently focused query could
 retrieve additional information needed for a better answer; never repeat the same or an equivalent query.
 Prefer memory over guessing, but never assert a fact that isn't stored. If nothing relevant is found,
@@ -26,9 +27,9 @@ like names, identifiers, product names, dates, and error codes once when relevan
 terms or keyword-stuff the query.
 
 Examples of good first-search rewrites:
-- "What should I work on next?" -> "Current projects, priorities, deadlines, and unfinished work"
-- "Would I like this album?" -> "Music preferences, favorite genres, coding music, and disliked styles"
-- "How should I review this PR?" -> "Code review preferences, PR size, testing expectations, and UI evidence"
+- "What is the name of my CA demo project?" -> "CA demo project"
+- "What should I work on next?" -> "Current project priorities"
+- "How should I review this PR?" -> "Code review preferences"
 
 search_memory returns a ranked index containing only path, description, and has_contents; it does
 not return scores or full contents. If has_contents=false, the description is the complete memory.
