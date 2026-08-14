@@ -358,7 +358,6 @@ async def search_memory(ctx: RunContextWrapper[MemoryContext], query: str, top_k
     Examples: "What is the name of my CA demo project?" -> "CA demo project";
     "How should I review this PR?" -> "code review preferences";
     "What should I work on next?" -> "current work priorities";
-    "Why did RESOURCE_DOES_NOT_EXIST happen?" -> "RESOURCE_DOES_NOT_EXIST";
     "favourite pet user favourite pet" -> "favourite pet".
 
     Returns up to top_k entries, each with: path, description, contents, and a relevance score
