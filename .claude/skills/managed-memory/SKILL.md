@@ -119,7 +119,20 @@ Put these in `agent_server/utils_memory.py` — use **(a) the shared core + the 
 ```python
 import os
 from databricks.sdk import WorkspaceClient
-from databricks.sdk.errors import DatabricksError
+from databricks.sdk.errors import (
+    Aborted,
+    BadRequest,
+    DataLoss,
+    DatabricksError,
+    DeadlineExceeded,
+    InternalError,
+    NotFound,
+    NotImplemented,
+    PermissionDenied,
+    TemporarilyUnavailable,
+    TooManyRequests,
+    Unauthenticated,
+)
 from mlflow.genai.agent_server import get_request_headers
 from agent_server.utils import get_user_workspace_client
 
@@ -197,20 +210,29 @@ def _search(scope, query, top_k=10):
     try:
         resp = _ws().api_client.do("POST", _entries(":search"), query={"scope": scope},
                                    body={"query": query, "top_k": top_k})
-    except DatabricksError as e:
-        code = getattr(e, "error_code", None)
+    except (PermissionDenied, Unauthenticated) as e:
         message = getattr(e, "message", str(e))
-        if code == "INVALID_PARAMETER_VALUE":
+        return f"Memory access is unavailable: {message}. Do not call more memory tools."
+    except BadRequest as e:
+        message = getattr(e, "message", str(e))
+        code = getattr(e, "error_code", None)
+        if code in {"INVALID_PARAMETER_VALUE", "MALFORMED_REQUEST"}:
             return f"Could not search memories: {message}. Correct the query or top_k and retry once."
-        if code in {"PERMISSION_DENIED", "UNAUTHENTICATED"}:
-            return f"Memory access is unavailable: {message}. Do not call more memory tools."
-        if code in {"ABORTED", "DEADLINE_EXCEEDED", "INTERNAL_ERROR", "TEMPORARILY_UNAVAILABLE", "UNAVAILABLE"}:
-            return f"Memory search failed transiently: {message}. Retry the search once."
-        if code == "NOT_FOUND":
-            return (
-                f"Memory search is unavailable: {message}. If other memory tools are already known "
-                "to work, fall back to list_memories and get_memory; otherwise stop memory calls."
-            )
+        return f"Could not search memories: {message}. Do not retry unless the message identifies a fix."
+    except DataLoss as e:
+        message = getattr(e, "message", str(e))
+        return f"Memory search failed with non-retryable data loss: {message}. Do not call more memory tools."
+    except (Aborted, DeadlineExceeded, InternalError, TemporarilyUnavailable, TooManyRequests) as e:
+        message = getattr(e, "message", str(e))
+        return f"Memory search failed transiently: {message}. Retry the search once."
+    except (NotFound, NotImplemented) as e:
+        message = getattr(e, "message", str(e))
+        return (
+            f"Memory search is unavailable: {message}. If other memory tools are already known "
+            "to work, fall back to list_memories and get_memory; otherwise stop memory calls."
+        )
+    except DatabricksError as e:
+        message = getattr(e, "message", str(e))
         return f"Could not search memories: {message}."
     results = resp.get("results", [])
     if not results:
@@ -571,7 +593,7 @@ curl -X POST https://<app-url>/invocations -H "Authorization: Bearer $TOKEN" \
 - **Update:** pass `description` to replace the one-line description, and/or one contents edit op. `str_replace.old_str` must match exactly once or `INVALID_PARAMETER_VALUE` — `get_memory` to re-read and retry with more surrounding text.
 - **List volume:** ≤ ~5000 entries per `(store, scope)`. List paginates: pass `page_size` and follow `next_page_token` (`page_token` param; URL-encode it — it can contain `+`/`=`). `max_results` is silently ignored; `page_size` is the real parameter, with no documented server default or max yet.
 - **Search:** semantic retrieval with BM25 keyword boosting over `entries:search`. Use one concise, self-contained natural-language phrase with enough context to preserve its meaning; do not shorten it until it becomes ambiguous. A unique identifier or error code may stand alone only when it fully specifies the information need. Preserve ambiguous names, identifiers, product names, dates, and error codes at most once and only when relevant; add at most one grounded disambiguating facet only when needed. Do not repeat terms, enumerate synonyms, add generic expansion lists, or invent details. `top_k` defaults to 10 and is clamped to 1-50; treat scores as relative ranking signals. Newly written entries can take a few seconds to become searchable (`list`/`get` see them immediately).
-- **Retryable:** `ABORTED` (concurrent write) and transient `5xx`/`DEADLINE_EXCEEDED` are safe to retry; `INVALID_PARAMETER_VALUE`/`NOT_FOUND`/`ALREADY_EXISTS` aren't.
+- **Errors:** branch on Databricks SDK exception classes, not only raw `error_code` strings. `INVALID_PARAMETER_VALUE` maps to an `InvalidParameterValue` subclass of `BadRequest`, while `MALFORMED_REQUEST` falls back to `BadRequest` through HTTP 400; catch `BadRequest` for both. `RESOURCE_DOES_NOT_EXIST` is a `NotFound` subclass, while raw `NOT_FOUND` falls back to `NotFound` through HTTP 404. `RESOURCE_EXHAUSTED` and `REQUEST_LIMIT_EXCEEDED` are `TooManyRequests` subclasses. HTTP 401/403/429/500/501/503/504 map to `Unauthenticated`/`PermissionDenied`/`TooManyRequests`/`InternalError`/`NotImplemented`/`TemporarilyUnavailable`/`DeadlineExceeded`. `DATA_LOSS` maps to `DataLoss`, which subclasses `InternalError` but is non-retryable, so catch it first. `Aborted`, `TooManyRequests`, and otherwise transient 5xx/deadline failures are reasonable to retry once; bad requests, missing resources, and conflicts such as `ALREADY_EXISTS` are not.
 
 ## Troubleshooting
 
