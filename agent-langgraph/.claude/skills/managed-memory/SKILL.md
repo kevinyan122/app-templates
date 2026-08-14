@@ -338,9 +338,8 @@ async def search_memory(ctx: RunContextWrapper[MemoryContext], query: str, top_k
     workflows) and return the most relevant entries, ranked by relevance, with their full content.
 
     Use this before answering when stored preferences, personal facts, decisions, workflows, or
-    project context could materially change the answer. Do not search merely because the requested
-    output is a recommendation, plan, or draft; search when prior context could make it meaningfully
-    more personal or accurate.
+    project context could materially change the answer. Search when prior context could make it
+    meaningfully more personal or accurate.
 
     Parameters:
     - query (required): Use one concise, self-contained natural-language phrase that describes the
